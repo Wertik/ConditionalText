@@ -2,6 +2,7 @@ name: ${project.name}
 main: ${project.groupId}.ConditionalTextPlugin
 version: ${project.version}
 authors: [Wertik1206]
+softdepend: [PlaceholderAPI]
 commands:
   conditionaltext:
     aliases: [ct, condtext, ctext]

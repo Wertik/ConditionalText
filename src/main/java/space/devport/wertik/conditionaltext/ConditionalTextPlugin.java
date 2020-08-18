@@ -41,6 +41,7 @@ public class ConditionalTextPlugin extends DevportPlugin {
     @Override
     public void onReload() {
         settingManager.loadSettings();
+        setupPlaceholders();
     }
 
     @Override
