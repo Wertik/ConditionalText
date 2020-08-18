@@ -38,11 +38,18 @@ public class Setting {
      */
     @Nullable
     public String process(Player player) {
+        return process(PlaceholderUtil.parsePlaceholder(player, this.placeholder));
+    }
+
+    @Nullable
+    public String process(String stringValue) {
+        return process(PlaceholderUtil.parseObject(stringValue));
+    }
+
+    @Nullable
+    public String process(Object value) {
         for (Rule rule : rules) {
-
             ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Checking rule " + rule.toString());
-
-            Object value = PlaceholderUtil.parsePlaceholder(player, placeholder);
 
             if (rule.check(value))
                 return rule.getOutputFormatted();

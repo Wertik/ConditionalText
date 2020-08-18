@@ -10,22 +10,25 @@ import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 public class PlaceholderUtil {
 
     public Object parsePlaceholder(@Nullable Player player, String placeholder) {
-
         String parsedString = PlaceholderAPI.setPlaceholders(player, placeholder);
 
+        return parseObject(parsedString);
+    }
+
+    public Object parseObject(String input) {
         try {
-            return Integer.parseInt(parsedString);
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Input is not an integer.");
         }
 
         try {
-            return Double.parseDouble(parsedString);
+            return Double.parseDouble(input);
         } catch (NumberFormatException e) {
             ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Input is not a double.");
         }
 
         ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Returning as string.");
-        return parsedString;
+        return input;
     }
 }

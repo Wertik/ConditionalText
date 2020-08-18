@@ -4,6 +4,7 @@ import lombok.Getter;
 import space.devport.utils.DevportPlugin;
 import space.devport.wertik.conditionaltext.commands.ConditionalTextCommand;
 import space.devport.wertik.conditionaltext.commands.subcommands.ReloadSubCommand;
+import space.devport.wertik.conditionaltext.commands.subcommands.TrySubCommand;
 import space.devport.wertik.conditionaltext.system.SettingManager;
 
 public class ConditionalTextPlugin extends DevportPlugin {
@@ -24,7 +25,10 @@ public class ConditionalTextPlugin extends DevportPlugin {
         setupPlaceholders();
 
         addMainCommand(new ConditionalTextCommand())
-                .addSubCommand(new ReloadSubCommand());
+                .addSubCommand(new ReloadSubCommand())
+                .addSubCommand(new TrySubCommand());
+
+        new ConditionalTextLanguage();
     }
 
     private void setupPlaceholders() {
