@@ -2,17 +2,18 @@ package space.devport.wertik.conditionaltext.system.utils;
 
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
+import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.exceptions.rule.InvalidOperatorException;
-import space.devport.wertik.conditionaltext.exceptions.rule.InvalidValueException;
 import space.devport.wertik.conditionaltext.system.struct.Condition;
 import space.devport.wertik.conditionaltext.system.struct.Rule;
-import space.devport.wertik.conditionaltext.system.struct.operator.Operator;
+import space.devport.wertik.conditionaltext.system.struct.operator.Operators;
+import space.devport.wertik.conditionaltext.system.struct.operator.impl.ObjectOperatorFunction;
 
 @UtilityClass
 public class ParserUtil {
 
     @NotNull
-    public Rule parseRule(String input) throws InvalidValueException, InvalidOperatorException {
+    public Rule parseRule(String input) throws InvalidOperatorException {
 
         // No condition specified.
         if (!input.contains(";")) {
@@ -25,26 +26,34 @@ public class ParserUtil {
     }
 
     @NotNull
-    public Condition parseCondition(String input) throws InvalidOperatorException, InvalidValueException {
+    public Condition parseCondition(String input) throws InvalidOperatorException {
 
-        Operator operator = null;
-        for (Operator loopOperator : Operator.values()) {
-            if (input.startsWith(loopOperator.getSign())) {
-                operator = loopOperator;
-                input = input.replace(operator.getSign(), "");
+        ObjectOperatorFunction operator = null;
+
+        for (String sign : Operators.operatorFunctions.keySet()) {
+
+            if (input.startsWith(sign)) {
+                operator = Operators.getFunction(sign);
+                input = input.replace(sign, "");
             }
         }
 
         if (operator == null)
             throw new InvalidOperatorException();
 
-        int requiredValue;
         try {
-            requiredValue = Integer.parseInt(input);
-        } catch (NumberFormatException numberFormatException) {
-            throw new InvalidValueException();
+            return new Condition(Integer.parseInt(input), operator);
+        } catch (NumberFormatException e) {
+            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Left input is not an integer.");
         }
 
-        return new Condition(requiredValue, operator);
+        try {
+            return new Condition(Double.parseDouble(input), operator);
+        } catch (NumberFormatException e) {
+            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Left input is not a double.");
+        }
+
+        ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Returning as string.");
+        return new Condition(input, operator);
     }
 }

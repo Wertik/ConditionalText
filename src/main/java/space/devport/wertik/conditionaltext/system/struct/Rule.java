@@ -20,7 +20,7 @@ public class Rule {
         this.output = output;
     }
 
-    public boolean check(int value) {
+    public boolean check(Object value) {
         return !hasCondition() || condition.check(value);
     }
 
@@ -30,5 +30,10 @@ public class Rule {
 
     public boolean hasCondition() {
         return condition != null;
+    }
+
+    @Override
+    public String toString() {
+        return output + ";" + (hasCondition() ? condition.getRequired().toString() : "null");
     }
 }

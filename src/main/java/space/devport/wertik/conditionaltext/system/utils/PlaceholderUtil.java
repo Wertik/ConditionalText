@@ -1,28 +1,31 @@
 package space.devport.wertik.conditionaltext.system.utils;
 
-import com.google.common.base.Strings;
 import lombok.experimental.UtilityClass;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
-import space.devport.wertik.conditionaltext.exceptions.InvalidPlaceholderException;
+import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 
 @UtilityClass
 public class PlaceholderUtil {
 
-    public int parsePlaceholder(@Nullable Player player, String placeholder) throws InvalidPlaceholderException {
+    public Object parsePlaceholder(@Nullable Player player, String placeholder) {
 
-        if (Strings.isNullOrEmpty(placeholder)) throw new InvalidPlaceholderException(placeholder);
+        String parsedString = PlaceholderAPI.setPlaceholders(player, placeholder);
 
-        String valueString = PlaceholderAPI.setPlaceholders(player, placeholder);
-
-        int value;
         try {
-            value = Integer.parseInt(valueString);
-        } catch (NumberFormatException ignored) {
-            throw new InvalidPlaceholderException(placeholder, "bad return type, expected int");
+            return Integer.parseInt(parsedString);
+        } catch (NumberFormatException e) {
+            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Input is not an integer.");
         }
 
-        return value;
+        try {
+            return Double.parseDouble(parsedString);
+        } catch (NumberFormatException e) {
+            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Input is not a double.");
+        }
+
+        ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Returning as string.");
+        return parsedString;
     }
 }

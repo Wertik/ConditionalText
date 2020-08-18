@@ -3,6 +3,7 @@ package space.devport.wertik.conditionaltext.system.struct;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
+import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.exceptions.InvalidPlaceholderException;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
@@ -42,7 +43,9 @@ public class Setting {
     public String process(Player player) throws InvalidPlaceholderException {
         for (Rule rule : rules) {
 
-            int value = PlaceholderUtil.parsePlaceholder(player, placeholder);
+            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Checking rule " + rule.toString());
+
+            Object value = PlaceholderUtil.parsePlaceholder(player, placeholder);
 
             if (rule.check(value))
                 return rule.getOutputFormatted();

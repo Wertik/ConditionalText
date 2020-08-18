@@ -5,10 +5,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import space.devport.utils.configuration.Configuration;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.exceptions.rule.InvalidOperatorException;
-import space.devport.wertik.conditionaltext.exceptions.rule.InvalidValueException;
 import space.devport.wertik.conditionaltext.system.struct.Rule;
-import space.devport.wertik.conditionaltext.system.utils.ParserUtil;
 import space.devport.wertik.conditionaltext.system.struct.Setting;
+import space.devport.wertik.conditionaltext.system.utils.ParserUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,7 +67,7 @@ public class SettingManager {
             Rule rule;
             try {
                 rule = ParserUtil.parseRule(ruleString);
-            } catch (InvalidValueException | InvalidOperatorException e) {
+            } catch (InvalidOperatorException e) {
                 plugin.getConsoleOutput().err("Could not parse rule " + ruleString + " in setting " + name + ", reason: " + e.getMessage());
                 continue;
             }
