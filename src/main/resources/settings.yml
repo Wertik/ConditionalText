@@ -1,0 +1,10 @@
+# Settings configuration for ${project.name}
+#
+# Version: ${project.version}
+
+setting-one:
+  placeholder: %player_health%
+  rules:
+    - "<3;&cYou're about to die!"
+    - "<6;&eA bit low, but fine."
+    - "&aHealthy as ever!"
