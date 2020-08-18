@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.configuration.ConfigurationSection;
 import space.devport.utils.configuration.Configuration;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
-import space.devport.wertik.conditionaltext.exceptions.rule.InvalidOperatorException;
+import space.devport.wertik.conditionaltext.exceptions.InvalidOperatorException;
 import space.devport.wertik.conditionaltext.system.struct.Rule;
 import space.devport.wertik.conditionaltext.system.struct.Setting;
 import space.devport.wertik.conditionaltext.system.utils.ParserUtil;

@@ -3,7 +3,7 @@ package space.devport.wertik.conditionaltext.system.utils;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
-import space.devport.wertik.conditionaltext.exceptions.rule.InvalidOperatorException;
+import space.devport.wertik.conditionaltext.exceptions.InvalidOperatorException;
 import space.devport.wertik.conditionaltext.system.struct.Condition;
 import space.devport.wertik.conditionaltext.system.struct.Rule;
 import space.devport.wertik.conditionaltext.system.struct.operator.Operators;

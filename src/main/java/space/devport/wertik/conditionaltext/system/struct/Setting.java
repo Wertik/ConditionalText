@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
-import space.devport.wertik.conditionaltext.exceptions.InvalidPlaceholderException;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
 import java.util.ArrayList;
@@ -36,11 +35,9 @@ public class Setting {
 
     /**
      * Process the Setting and output the formatted text based on rules.
-     *
-     * @throws InvalidPlaceholderException Should never be thrown, but is included.
      */
     @Nullable
-    public String process(Player player) throws InvalidPlaceholderException {
+    public String process(Player player) {
         for (Rule rule : rules) {
 
             ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Checking rule " + rule.toString());

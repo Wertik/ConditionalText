@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import space.devport.wertik.conditionaltext.exceptions.InvalidPlaceholderException;
 import space.devport.wertik.conditionaltext.system.struct.Setting;
 
 @RequiredArgsConstructor
@@ -37,19 +36,8 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
 
         if (setting == null) return "invalid_setting";
 
-        String output;
-        try {
-            output = setting.process(player);
-        } catch (InvalidPlaceholderException e) {
-            plugin.getConsoleOutput().err("Could not parse placeholder.");
-            plugin.getConsoleOutput().err(e.getMessage());
+        String output = setting.process(player);
 
-            if (plugin.getConsoleOutput().isDebug())
-                e.printStackTrace();
-
-            return "invalid_input_placeholder";
-        }
-
-        return output;
+        return output == null ? "invalid_input_placeholder" : output;
     }
 }

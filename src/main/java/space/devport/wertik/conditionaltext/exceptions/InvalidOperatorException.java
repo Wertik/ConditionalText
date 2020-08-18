@@ -1,4 +1,4 @@
-package space.devport.wertik.conditionaltext.exceptions.rule;
+package space.devport.wertik.conditionaltext.exceptions;
 
 public class InvalidOperatorException extends Exception {
 
