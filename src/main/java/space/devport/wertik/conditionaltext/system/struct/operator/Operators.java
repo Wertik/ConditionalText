@@ -13,7 +13,6 @@ public class Operators {
 
     public Map<String, ObjectOperatorFunction> operatorFunctions = new HashMap<>();
 
-    //TODO Throw exception when it's not applicable
     static {
         operatorFunctions.put("<", (input1, input2) -> {
             ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Operator < values: " + input1.toString() + " - " + input2.toString());
@@ -27,6 +26,20 @@ public class Operators {
         operatorFunctions.put(">", (input1, input2) -> {
             if (input1 instanceof Number && input2 instanceof Number) {
                 return ((Number) input1).floatValue() > ((Number) input2).floatValue();
+            }
+            return false;
+        });
+
+        operatorFunctions.put(">=", (input1, input2) -> {
+            if (input1 instanceof Number && input2 instanceof Number) {
+                return ((Number) input1).floatValue() >= ((Number) input2).floatValue();
+            }
+            return false;
+        });
+
+        operatorFunctions.put("<=", (input1, input2) -> {
+            if (input1 instanceof Number && input2 instanceof Number) {
+                return ((Number) input1).floatValue() <= ((Number) input2).floatValue();
             }
             return false;
         });
