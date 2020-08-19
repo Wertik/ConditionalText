@@ -1,8 +1,10 @@
 package space.devport.wertik.conditionaltext.system.struct;
 
 import lombok.Getter;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
+import space.devport.utils.text.StringUtil;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
@@ -38,7 +40,8 @@ public class Setting {
      */
     @Nullable
     public String process(Player player) {
-        return process(PlaceholderUtil.parsePlaceholder(player, this.placeholder));
+        String output = process(PlaceholderUtil.parsePlaceholder(player, this.placeholder));
+        return StringUtil.color(output != null ? PlaceholderAPI.setPlaceholders(player, output) : output);
     }
 
     @Nullable

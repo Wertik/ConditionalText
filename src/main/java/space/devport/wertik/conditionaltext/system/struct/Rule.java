@@ -24,12 +24,12 @@ public class Rule {
         return !hasCondition() || condition.check(value);
     }
 
-    public String getOutputFormatted() {
-        return StringUtil.color(output);
-    }
-
     public boolean hasCondition() {
         return condition != null;
+    }
+
+    public String getOutputFormatted() {
+        return StringUtil.color(output);
     }
 
     @Override
