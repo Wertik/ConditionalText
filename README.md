@@ -11,14 +11,14 @@ when he's above 6, display `Healthy as ever!` Got it? Good.
 
 ## Installation
 
-As any other standalone plugin, drop into `plugins/` and restart the server.
+As any other standalone plugin, drop into `plugins/` and restart the server.\
 *Note: plugin will start up without PlaceholderAPI installed, but it'd be useless,... so install it!*
 
 ## Features
 
 ### Placeholder settings
 
-Settings are what makes this possible, they take an input placeholder and rules.
+Settings are what makes this possible, they take an input placeholder and rules.\
 They're located in [settings.yml](https://github.com/Wertik/ConditionalText/blob/master/src/main/resources/settings.yml)
 
 ```yaml
@@ -30,7 +30,8 @@ setting-one:
     - "&aHealthy as ever!"
 ```
 
-Just create a new section with the setting name in the file and let's get started!
+Just create a new section with the setting name in the file and let's get started!\
+*Note: Never use underscores in the setting names.*
 
 #### Input placeholder
 
@@ -42,7 +43,7 @@ The output of this placeholder when parsed will be used in rules below to figure
 
 ### Rules
 
-Every rule is made up from a condition (in front of the semicolon) and the output text (everything after).
+Every rule is made up from a condition (in front of the semicolon) and the output text (everything after).\
 When figuring out which text to use, the plugin goes from the top down and whichever condition first passes is used.
 
 #### Conditions
@@ -52,7 +53,7 @@ Conditions should always have a valid operator on the left side and the limit nu
 Valid string operators: `=, !=`\
 Valid number operators: `=, !=, <, >, <=, >=`
 
-When no condition is specified, it's automatically condidered true -- passing. 
+When no condition is specified, it's automatically condidered true -- passing. \
 Always try to provide one rule with no condition to make sure there's always some output.
 
 ```yaml
@@ -78,8 +79,8 @@ Output text is what's displayed if the conditions are met. It can contain colors
 
 ### Using the placeholders
 
-After you've defined your settings, let's use them!
-First load the new settings in with a quick `/ct reload`.
+After you've defined your settings, let's use them!\
+But first, load the new settings in with a quick `/ct reload`.
 
 Then just use the placeholder ``%conditionaltext_<setting>%`` whereever you desire. (And where PlaceholderAPI is supported)
 
@@ -101,6 +102,6 @@ custom-arg-setting:
 *Example with [Specialized crates](https://www.spigotmc.org/resources/specialized-crates-1-8-1-16.9047/)*
 
 To provide the `$0` argument, add another param to our placeholder: ``%conditionaltext_<setting>_(args)%``\
-You can add as many of them as you want! Just make sure you're **counting from 0**, because that's the right and only way to count.
+You can add as many of them as you want! Just make sure you're **counting from 0**, because that's the right and only way to count, and seperating each one with an underscore.
 
 For the above example with a crate named Epic to display, you'd use ``%conditionaltext_custom-arg-setting_Epic%``
