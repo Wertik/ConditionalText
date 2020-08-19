@@ -4,13 +4,14 @@ import lombok.experimental.UtilityClass;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
+import space.devport.utils.text.StringUtil;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 
 @UtilityClass
 public class PlaceholderUtil {
 
     public Object parsePlaceholder(@Nullable Player player, String placeholder) {
-        String parsedString = PlaceholderAPI.setPlaceholders(player, placeholder);
+        String parsedString = StringUtil.stripColor(PlaceholderAPI.setPlaceholders(player, placeholder));
 
         return parseObject(parsedString);
     }

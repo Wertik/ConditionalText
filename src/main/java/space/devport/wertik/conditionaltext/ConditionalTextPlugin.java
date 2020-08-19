@@ -9,6 +9,8 @@ import space.devport.wertik.conditionaltext.system.SettingManager;
 
 public class ConditionalTextPlugin extends DevportPlugin {
 
+    //TODO Parse placeholders in conditions
+
     @Getter
     private static ConditionalTextPlugin instance;
 
