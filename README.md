@@ -105,3 +105,7 @@ To provide the `$0` argument, add another param to our placeholder: ``%condition
 You can add as many of them as you want! Just make sure you're **counting from 0**, because that's the right and only way to count, and seperating each one with an underscore.
 
 For the above example with a crate named Epic to display, you'd use ``%conditionaltext_custom-arg-setting_Epic%``
+
+### Help
+
+For help, join [this empty discord server](https://discord.gg/5Suw58j)
