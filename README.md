@@ -9,12 +9,17 @@ This plugin has been made just for that, it takes PlaceholderAPI placeholdes and
 **ex.:** Display messages in scoreboard based on players health. If the player is under 3 health, display `You're about to die!`, when he's above three, but below 6, display `You're still fiiine..`,
 when he's above 6, display `Healthy as ever!` Got it? Good.
 
+## Installation
+
+As any other standalone plugin, drop into `plugins/` and restart the server.
+*Note: plugin will start up without PlaceholderAPI installed, but it'd be useless,... so install it!*
+
 ## Features
 
 ### Placeholder settings
 
 Settings are what makes this possible, they take an input placeholder and rules.
-They're located in the settings.yml file.
+They're located in [settings.yml](https://github.com/Wertik/ConditionalText/blob/master/src/main/resources/settings.yml)
 
 ```yaml
 setting-one:
@@ -24,6 +29,8 @@ setting-one:
     - "<6;&eYou're fiiiine you crybaby!"
     - "&aHealthy as ever!"
 ```
+
+Just create a new section with the setting name in the file and let's get started!
 
 #### Input placeholder
 
@@ -55,6 +62,14 @@ rules:
   - '&7On your way to a million huh.'
 ```
 
+With strings:
+*Let's say a placeholder outputs yes or no.*
+```yaml
+rules:
+  - '=yes;&aYup yup.'
+  - '=no;&cNaaaah.'
+```
+
 #### Output text
 
 Output text is what's displayed if the conditions are met. It can contain colors (yes, 1.16 hex colors supported) and more PlaceholderAPI placeholders, which will be parsed.
@@ -66,15 +81,14 @@ Output text is what's displayed if the conditions are met. It can contain colors
 After you've defined your settings, let's use them!
 First load the new settings in with a quick `/ct reload`.
 
-Then just use the placeholder ``%conditionaltext_<setting>%`` whereever you desire.
+Then just use the placeholder ``%conditionaltext_<setting>%`` whereever you desire. (And where PlaceholderAPI is supported)
 
-## Extra feature - custom arguments
+### Extra feature - custom arguments
 
 It's a useful feature when you want to use one setting for more variations of the same placeholder, for example displaying the amount of keys on multiple crates. 
 It would be a pain to create a setting for each of the crate types.
 
 And that's why this is a thing:
-*Example with Specialized crates. It's a cool plugin.*
 ```yaml
 custom-arg-setting:
   placeholder: '%specializedcrates_virtual_keys_$0%'
@@ -84,6 +98,7 @@ custom-arg-setting:
     - "<10;&7You have &b%specializedcrates_virtual_keys_$0% &7keys."
     - ">50;&b%specializedcrates_virtual_keys_$0% &7keys, are you joking? Why are you not gambling you key-hugger?!?!"
 ```
+*Example with [Specialized crates](https://www.spigotmc.org/resources/specialized-crates-1-8-1-16.9047/)*
 
 To provide the `$0` argument, add another param to our placeholder: ``%conditionaltext_<setting>_(args)%``\
 You can add as many of them as you want! Just make sure you're **counting from 0**, because that's the right and only way to count.
