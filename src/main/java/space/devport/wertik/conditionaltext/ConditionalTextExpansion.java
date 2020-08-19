@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import space.devport.wertik.conditionaltext.system.struct.Setting;
 
+import java.util.Arrays;
+
 @RequiredArgsConstructor
 public class ConditionalTextExpansion extends PlaceholderExpansion {
 
@@ -35,6 +37,10 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
         Setting setting = plugin.getSettingManager().getSetting(params);
 
         if (setting == null) return "invalid_setting";
+
+        String[] args = Arrays.copyOfRange(params.split("_"), 1, params.split("_").length - 1);
+
+        plugin.getConsoleOutput().debug("Custom arguments: " + Arrays.toString(args));
 
         String output = setting.process(player);
 

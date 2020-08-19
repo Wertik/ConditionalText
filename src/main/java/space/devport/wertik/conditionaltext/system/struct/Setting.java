@@ -39,9 +39,22 @@ public class Setting {
      * Process the Setting and output the formatted text based on rules.
      */
     @Nullable
-    public String process(Player player) {
-        String output = process(PlaceholderUtil.parsePlaceholder(player, this.placeholder));
-        return StringUtil.color(output != null ? PlaceholderAPI.setPlaceholders(player, output) : output);
+    public String process(Player player, String... arguments) {
+        String placeholder = parseArguments(this.placeholder, arguments);
+
+        String output = process(PlaceholderUtil.parsePlaceholder(player, placeholder));
+
+        output = parseArguments(output, arguments);
+
+        return StringUtil.color(output != null ? PlaceholderAPI.setPlaceholders(player, output) : null);
+    }
+
+    private String parseArguments(String string, String... arguments) {
+        for (int n = 0; n < arguments.length; n++) {
+            String argument = arguments[n];
+            string = string.replace("$" + n, argument);
+        }
+        return string;
     }
 
     @Nullable
