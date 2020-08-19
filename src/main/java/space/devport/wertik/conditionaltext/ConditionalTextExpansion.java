@@ -38,11 +38,11 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
 
         if (setting == null) return "invalid_setting";
 
-        String[] args = Arrays.copyOfRange(params.split("_"), 1, params.split("_").length - 1);
+        String[] args = Arrays.copyOfRange(params.split("_"), 1, params.split("_").length);
 
         plugin.getConsoleOutput().debug("Custom arguments: " + Arrays.toString(args));
 
-        String output = setting.process(player);
+        String output = setting.process(player, args);
 
         return output == null ? "invalid_input_placeholder" : output;
     }
