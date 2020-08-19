@@ -34,7 +34,7 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
 
         if (Strings.isNullOrEmpty(params)) return "invalid_params";
 
-        Setting setting = plugin.getSettingManager().getSetting(params);
+        Setting setting = plugin.getSettingManager().getSetting(params.split("_")[0]);
 
         if (setting == null) return "invalid_setting";
 
