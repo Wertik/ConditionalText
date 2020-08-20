@@ -21,8 +21,9 @@ public class Condition {
         ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Current value: " + value.toString() + ", required: " + required);
 
         Object required = this.required;
-        if (required instanceof String && player.length > 0)
-            required = PlaceholderUtil.parsePlaceholder(player[0], (String) required);
+        if (required instanceof String && player.length > 0) {
+            required = PlaceholderUtil.parseObject(PlaceholderUtil.parsePlaceholder(player[0], (String) required));
+        }
 
         return operator.apply(value, required);
     }
