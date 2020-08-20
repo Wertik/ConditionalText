@@ -63,6 +63,9 @@ rules:
   - '&7On your way to a million huh.'
 ```
 
+Since 1.1.2 you can also use placeholders in conditions.
+``- '<%some_placeholder%;&7Some text.'``
+
 With strings:
 *Let's say a placeholder outputs yes or no.*
 ```yaml
