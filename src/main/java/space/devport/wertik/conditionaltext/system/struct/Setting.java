@@ -42,7 +42,7 @@ public class Setting {
     public String process(Player player, String... arguments) {
         String placeholder = parseArguments(this.placeholder, arguments);
 
-        String output = process(PlaceholderUtil.parsePlaceholder(player, placeholder));
+        String output = process(PlaceholderUtil.parsePlaceholderIntoObject(player, placeholder));
 
         output = parseArguments(output, arguments);
 

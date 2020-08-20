@@ -10,7 +10,11 @@ import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 @UtilityClass
 public class PlaceholderUtil {
 
-    public Object parsePlaceholder(@Nullable Player player, String placeholder) {
+    public String parsePlaceholder(Player player, String placeholder) {
+        return StringUtil.stripColor(PlaceholderAPI.setPlaceholders(player, placeholder));
+    }
+
+    public Object parsePlaceholderIntoObject(@Nullable Player player, String placeholder) {
         String parsedString = StringUtil.stripColor(PlaceholderAPI.setPlaceholders(player, placeholder));
 
         return parseObject(parsedString);
