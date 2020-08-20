@@ -53,7 +53,7 @@ public class TrySubCommand extends SubCommand {
             }
         }
 
-        String output = args.length > 2 ? setting.process(args[2]) : setting.process(target);
+        String output = args.length > 2 ? setting.process(args[2]) : setting.process((Player) target, new String[0]);
 
         language.getPrefixed("Commands.Try.Output")
                 .replace("%result%", output)

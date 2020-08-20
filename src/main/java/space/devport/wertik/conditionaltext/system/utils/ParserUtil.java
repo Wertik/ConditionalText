@@ -41,8 +41,6 @@ public class ParserUtil {
         if (operator == null)
             throw new InvalidOperatorException();
 
-        input = PlaceholderUtil.parsePlaceholder(null, input);
-
         try {
             return new Condition(Integer.parseInt(input), operator);
         } catch (NumberFormatException e) {

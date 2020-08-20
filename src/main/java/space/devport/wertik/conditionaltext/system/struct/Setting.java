@@ -42,7 +42,7 @@ public class Setting {
     public String process(Player player, String... arguments) {
         String placeholder = parseArguments(this.placeholder, arguments);
 
-        String output = process(PlaceholderUtil.parsePlaceholderIntoObject(player, placeholder));
+        String output = process(PlaceholderUtil.parsePlaceholderIntoObject(player, placeholder), player);
 
         output = parseArguments(output, arguments);
 
@@ -60,6 +60,17 @@ public class Setting {
     @Nullable
     public String process(String stringValue) {
         return process(PlaceholderUtil.parseObject(stringValue));
+    }
+
+    @Nullable
+    public String process(Object value, Player player) {
+        for (Rule rule : rules) {
+            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Checking rule " + rule.toString());
+
+            if (rule.check(value, player))
+                return rule.getOutputFormatted();
+        }
+        return null;
     }
 
     @Nullable

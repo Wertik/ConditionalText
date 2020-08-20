@@ -1,6 +1,7 @@
 package space.devport.wertik.conditionaltext.system.struct;
 
 import lombok.Getter;
+import org.bukkit.entity.Player;
 import space.devport.utils.text.StringUtil;
 
 public class Rule {
@@ -20,8 +21,8 @@ public class Rule {
         this.output = output;
     }
 
-    public boolean check(Object value) {
-        return !hasCondition() || condition.check(value);
+    public boolean check(Object value, Player... player) {
+        return !hasCondition() || condition.check(value, player);
     }
 
     public boolean hasCondition() {
