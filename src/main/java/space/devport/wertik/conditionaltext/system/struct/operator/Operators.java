@@ -33,46 +33,74 @@ public class Operators {
             return false;
         });
 
-        operatorFunctions.put(">", (input1, input2) -> {
-            if (input1 instanceof Number && input2 instanceof Number) {
-                return ((Number) input1).floatValue() > ((Number) input2).floatValue();
-            }
-            return false;
-        });
+        operatorFunctions.put("<=", (input, required) -> {
 
-        operatorFunctions.put(">=", (input1, input2) -> {
-            if (input1 instanceof Number && input2 instanceof Number) {
-                return ((Number) input1).floatValue() >= ((Number) input2).floatValue();
-            }
-            return false;
-        });
-
-        operatorFunctions.put("<=", (input1, input2) -> {
-            if (input1 instanceof Number && input2 instanceof Number) {
-                return ((Number) input1).floatValue() <= ((Number) input2).floatValue();
-            }
-            return false;
-        });
-
-        operatorFunctions.put("=", (input1, input2) -> {
-            if (input1 instanceof Number && input2 instanceof Number) {
-                return ((Number) input1).floatValue() == ((Number) input2).floatValue();
+            if (input instanceof Number && required instanceof Number) {
+                return ((Number) input).floatValue() <= ((Number) required).floatValue();
             }
 
-            if (input1 instanceof String && input2 instanceof String) {
-                return ((String) input1).equalsIgnoreCase((String) input2);
+            if (input instanceof LocalTime && required instanceof LocalTime) {
+                return ((LocalTime) input).isBefore((LocalTime) required) || input.equals(required);
             }
 
             return false;
         });
 
-        operatorFunctions.put("!=", (input1, input2) -> {
-            if (input1 instanceof Number && input2 instanceof Number) {
-                return ((Number) input1).floatValue() != ((Number) input2).floatValue();
+        operatorFunctions.put(">", (input, required) -> {
+
+            if (input instanceof Number && required instanceof Number) {
+                return ((Number) input).floatValue() > ((Number) required).floatValue();
             }
 
-            if (input1 instanceof String && input2 instanceof String) {
-                return !((String) input1).equalsIgnoreCase((String) input2);
+            if (input instanceof LocalTime && required instanceof LocalTime) {
+                return ((LocalTime) input).isAfter((LocalTime) required);
+            }
+
+            return false;
+        });
+
+        operatorFunctions.put(">=", (input, required) -> {
+
+            if (input instanceof Number && required instanceof Number) {
+                return ((Number) input).floatValue() >= ((Number) required).floatValue();
+            }
+
+            if (input instanceof LocalTime && required instanceof LocalTime) {
+                return ((LocalTime) input).isAfter((LocalTime) required) || input.equals(required);
+            }
+
+            return false;
+        });
+
+        operatorFunctions.put("=", (input, required) -> {
+
+            if (input instanceof Number && required instanceof Number) {
+                return ((Number) input).floatValue() == ((Number) required).floatValue();
+            }
+
+            if (input instanceof String && required instanceof String) {
+                return ((String) input).equalsIgnoreCase((String) required);
+            }
+
+            if (input instanceof LocalTime && required instanceof LocalTime) {
+                return input.equals(required);
+            }
+
+            return false;
+        });
+
+        operatorFunctions.put("!=", (input, required) -> {
+
+            if (input instanceof Number && required instanceof Number) {
+                return ((Number) input).floatValue() != ((Number) required).floatValue();
+            }
+
+            if (input instanceof String && required instanceof String) {
+                return !((String) input).equalsIgnoreCase((String) required);
+            }
+
+            if (input instanceof LocalTime && required instanceof LocalTime) {
+                return !input.equals(required);
             }
 
             return false;
