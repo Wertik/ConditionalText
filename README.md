@@ -51,7 +51,7 @@ When figuring out which text to use, the plugin goes from the top down and which
 Conditions should always have a valid operator on the left side and the limit number on the right. ``<10, >50, !=100``
 
 Valid string operators: `=, !=`\
-Valid number operators: `=, !=, <, >, <=, >=`
+Valid number operators: `=, !=, <, >, <=, >=`\
 Valid time operators: `=, !=, <, >, <=, >=`
 
 When no condition is specified, it's automatically condidered true -- passing. \
@@ -75,7 +75,7 @@ rules:
   - '=no;&cNaaaah.'
 ```
 
-Time:
+With time:
 ```yaml
 rules:
   - '<10:0:0;&7&ogooob moorning.'
