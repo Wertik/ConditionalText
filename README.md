@@ -52,6 +52,7 @@ Conditions should always have a valid operator on the left side and the limit nu
 
 Valid string operators: `=, !=`\
 Valid number operators: `=, !=, <, >, <=, >=`
+Valid time operators: `=, !=, <, >, <=, >=`
 
 When no condition is specified, it's automatically condidered true -- passing. \
 Always try to provide one rule with no condition to make sure there's always some output.
@@ -73,6 +74,16 @@ rules:
   - '=yes;&aYup yup.'
   - '=no;&cNaaaah.'
 ```
+
+Time:
+```yaml
+rules:
+  - '<10:0:0;&7&ogooob moorning.'
+  - '<14:0:0;&7&otime for lunch, munch munch.'
+  - '&7&oNap tiiiime!'
+```
+
+When using time, make sure you have the right time format configured in [config.yml](https://github.com/Wertik/ConditionalText/blob/master/src/main/resources/config.yml)
 
 #### Output text
 
