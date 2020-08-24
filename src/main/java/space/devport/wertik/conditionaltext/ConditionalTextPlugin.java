@@ -2,10 +2,13 @@ package space.devport.wertik.conditionaltext;
 
 import lombok.Getter;
 import space.devport.utils.DevportPlugin;
+import space.devport.utils.UsageFlag;
 import space.devport.wertik.conditionaltext.commands.ConditionalTextCommand;
 import space.devport.wertik.conditionaltext.commands.subcommands.ReloadSubCommand;
 import space.devport.wertik.conditionaltext.commands.subcommands.TrySubCommand;
 import space.devport.wertik.conditionaltext.system.SettingManager;
+
+import java.time.format.DateTimeFormatter;
 
 public class ConditionalTextPlugin extends DevportPlugin {
 
@@ -17,9 +20,14 @@ public class ConditionalTextPlugin extends DevportPlugin {
     @Getter
     private SettingManager settingManager;
 
+    @Getter
+    private DateTimeFormatter timeFormatter;
+
     @Override
     public void onPluginEnable() {
         instance = this;
+
+        loadOptions();
 
         settingManager = new SettingManager(this);
         settingManager.loadSettings();
@@ -31,6 +39,10 @@ public class ConditionalTextPlugin extends DevportPlugin {
                 .addSubCommand(new TrySubCommand());
 
         new ConditionalTextLanguage();
+    }
+
+    private void loadOptions() {
+        this.timeFormatter = DateTimeFormatter.ofPattern(this.configuration.getString("formats.time", "H:m:s"));
     }
 
     private void setupPlaceholders() {
@@ -46,22 +58,13 @@ public class ConditionalTextPlugin extends DevportPlugin {
 
     @Override
     public void onReload() {
+        loadOptions();
         settingManager.loadSettings();
         setupPlaceholders();
     }
 
     @Override
-    public boolean useLanguage() {
-        return true;
-    }
-
-    @Override
-    public boolean useHolograms() {
-        return false;
-    }
-
-    @Override
-    public boolean useMenus() {
-        return false;
+    public UsageFlag[] usageFlags() {
+        return new UsageFlag[]{UsageFlag.LANGUAGE, UsageFlag.COMMANDS, UsageFlag.CONFIGURATION};
     }
 }

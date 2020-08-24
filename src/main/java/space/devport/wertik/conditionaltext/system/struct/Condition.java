@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.system.struct.operator.impl.ObjectOperatorFunction;
+import space.devport.wertik.conditionaltext.system.utils.ParserUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
 public class Condition {
@@ -22,7 +23,7 @@ public class Condition {
 
         Object required = this.required;
         if (required instanceof String && player.length > 0) {
-            required = PlaceholderUtil.parseObject(PlaceholderUtil.parsePlaceholder(player[0], (String) required));
+            required = ParserUtil.parseObject(PlaceholderUtil.parsePlaceholder(player[0], (String) required));
         }
 
         return operator.apply(value, required);

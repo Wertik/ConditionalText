@@ -4,3 +4,7 @@
 
 plugin-prefix: '&eConditionalText &8>> '
 debug-enabled: true
+
+# Define default formats
+formats:
+  time: 'H:m:s'

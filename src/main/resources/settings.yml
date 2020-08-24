@@ -8,3 +8,10 @@ setting-one:
     - "<3;&cYou're about to die!"
     - "<6;&eA bit low, but fine."
     - "&aHealthy as ever!"
+
+time-setting:
+  placeholder: '%world_time_$0%'
+  rules:
+    - '<10:0:0;&7&ogooob moorning.'
+    - '<14:0:0;&7&otime for lunch, munch munch.'
+    - '&7&oNap tiiiime!'

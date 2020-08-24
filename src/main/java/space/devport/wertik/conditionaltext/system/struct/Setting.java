@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 import space.devport.utils.text.StringUtil;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
+import space.devport.wertik.conditionaltext.system.utils.ParserUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class Setting {
 
     @Nullable
     public String process(String stringValue) {
-        return process(PlaceholderUtil.parseObject(stringValue));
+        return process(ParserUtil.parseObject(stringValue));
     }
 
     @Nullable

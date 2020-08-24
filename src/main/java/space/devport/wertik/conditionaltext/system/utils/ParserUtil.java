@@ -2,12 +2,16 @@ package space.devport.wertik.conditionaltext.system.utils;
 
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
+import space.devport.utils.ConsoleOutput;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.exceptions.InvalidOperatorException;
 import space.devport.wertik.conditionaltext.system.struct.Condition;
 import space.devport.wertik.conditionaltext.system.struct.Rule;
 import space.devport.wertik.conditionaltext.system.struct.operator.Operators;
 import space.devport.wertik.conditionaltext.system.struct.operator.impl.ObjectOperatorFunction;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 @UtilityClass
 public class ParserUtil {
@@ -41,19 +45,31 @@ public class ParserUtil {
         if (operator == null)
             throw new InvalidOperatorException();
 
+        return new Condition(parseObject(input), operator);
+    }
+
+    @NotNull
+    public Object parseObject(String input) {
+
         try {
-            return new Condition(Integer.parseInt(input), operator);
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Left input is not an integer.");
+            ConsoleOutput.getInstance().debug("Input is not an integer.");
         }
 
         try {
-            return new Condition(Double.parseDouble(input), operator);
+            return Double.parseDouble(input);
         } catch (NumberFormatException e) {
-            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Left input is not a double.");
+            ConsoleOutput.getInstance().debug("Input is not a double.");
         }
 
-        ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Returning as string.");
-        return new Condition(input, operator);
+        try {
+            return LocalTime.parse(input, ConditionalTextPlugin.getInstance().getTimeFormatter());
+        } catch (DateTimeParseException e) {
+            ConsoleOutput.getInstance().debug("Input is not a time.");
+        }
+
+        ConsoleOutput.getInstance().debug("Returning as a string.");
+        return input;
     }
 }
