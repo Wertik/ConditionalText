@@ -44,6 +44,6 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
 
         String output = setting.process(player, args);
 
-        return output == null ? "invalid_input_placeholder" : output;
+        return output == null ? "" : output;
     }
 }
