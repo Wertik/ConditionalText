@@ -12,8 +12,6 @@ import java.time.format.DateTimeFormatter;
 
 public class ConditionalTextPlugin extends DevportPlugin {
 
-    //TODO Parse placeholders in conditions
-
     @Getter
     private static ConditionalTextPlugin instance;
 

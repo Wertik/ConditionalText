@@ -24,9 +24,11 @@ public class ParserUtil {
             return new Rule(input);
         }
 
-        Condition condition = parseCondition(input.split(";")[0]);
+        String[] arr = input.split(";");
 
-        return new Rule(input.split(";")[1], condition);
+        Condition condition = parseCondition(arr[0]);
+
+        return new Rule(arr.length > 1 ? arr[1] : "", condition);
     }
 
     @NotNull
