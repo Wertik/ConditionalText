@@ -74,7 +74,7 @@ public class ParserUtil {
 
         if (out == null) out = input;
 
-        ConsoleOutput.getInstance().debug("Object parsed: " + input + " -> " + out.toString() + " (" + out.getClass().getSimpleName() + ")");
+        ConsoleOutput.getInstance().debug("Object parsed: '" + input + "' -> '" + out.toString() + "' (" + out.getClass().getSimpleName() + ")");
         return out;
     }
 }
