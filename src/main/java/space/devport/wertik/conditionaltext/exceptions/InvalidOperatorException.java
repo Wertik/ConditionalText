@@ -6,7 +6,7 @@ public class InvalidOperatorException extends Exception {
         super("Invalid operator");
     }
 
-    public InvalidOperatorException(String message) {
-        super(message);
+    public InvalidOperatorException(String sign) {
+        super("Invalid operator sign: " + sign);
     }
 }

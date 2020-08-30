@@ -2,7 +2,7 @@ package space.devport.wertik.conditionaltext.system.struct.operator;
 
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.Nullable;
-import space.devport.wertik.conditionaltext.system.struct.operator.impl.ObjectOperatorFunction;
+import space.devport.wertik.conditionaltext.system.struct.operator.struct.impl.ObjectOperator;
 
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 @UtilityClass
 public class Operators {
 
-    public Map<String, ObjectOperatorFunction> operatorFunctions = new HashMap<>();
+    public Map<String, ObjectOperator> operatorFunctions = new HashMap<>();
 
     static {
         operatorFunctions.put("<", (input, required) -> {
@@ -111,8 +111,8 @@ public class Operators {
     }
 
     @Nullable
-    public ObjectOperatorFunction getFunction(String str) {
-        for (Map.Entry<String, ObjectOperatorFunction> entry : operatorFunctions.entrySet())
+    public ObjectOperator getFunction(String str) {
+        for (Map.Entry<String, ObjectOperator> entry : operatorFunctions.entrySet())
             if (entry.getKey().equalsIgnoreCase(str))
                 return entry.getValue();
         return null;

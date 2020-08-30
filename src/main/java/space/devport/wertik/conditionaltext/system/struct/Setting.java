@@ -5,7 +5,6 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 import space.devport.utils.text.StringUtil;
-import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.system.utils.ParserUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
@@ -66,8 +65,6 @@ public class Setting {
     @Nullable
     public String process(Object value, Player player) {
         for (Rule rule : rules) {
-            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Checking rule " + rule.toString());
-
             if (rule.check(value, player))
                 return rule.getOutputFormatted();
         }
@@ -77,8 +74,6 @@ public class Setting {
     @Nullable
     public String process(Object value) {
         for (Rule rule : rules) {
-            ConditionalTextPlugin.getInstance().getConsoleOutput().debug("Checking rule " + rule.toString());
-
             if (rule.check(value))
                 return rule.getOutputFormatted();
         }

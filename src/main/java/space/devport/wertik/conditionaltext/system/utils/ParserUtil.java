@@ -8,7 +8,7 @@ import space.devport.wertik.conditionaltext.exceptions.InvalidOperatorException;
 import space.devport.wertik.conditionaltext.system.struct.Condition;
 import space.devport.wertik.conditionaltext.system.struct.Rule;
 import space.devport.wertik.conditionaltext.system.struct.operator.Operators;
-import space.devport.wertik.conditionaltext.system.struct.operator.impl.ObjectOperatorFunction;
+import space.devport.wertik.conditionaltext.system.struct.operator.struct.impl.OperatorWrapper;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -34,18 +34,18 @@ public class ParserUtil {
     @NotNull
     public Condition parseCondition(String input) throws InvalidOperatorException {
 
-        ObjectOperatorFunction operator = null;
+        OperatorWrapper operator = null;
 
         for (String sign : Operators.operatorFunctions.keySet()) {
 
             if (input.startsWith(sign)) {
-                operator = Operators.getFunction(sign);
                 input = input.replace(sign, "");
+                operator = new OperatorWrapper(sign, Operators.getFunction(sign));
             }
         }
 
         if (operator == null)
-            throw new InvalidOperatorException();
+            throw new InvalidOperatorException(input);
 
         return new Condition(parseObject(input), operator);
     }
@@ -53,25 +53,28 @@ public class ParserUtil {
     @NotNull
     public Object parseObject(String input) {
 
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            ConsoleOutput.getInstance().debug("Input is not an integer.");
-        }
+        Object out = null;
 
         try {
-            return Double.parseDouble(input);
-        } catch (NumberFormatException e) {
-            ConsoleOutput.getInstance().debug("Input is not a double.");
+            out = Integer.parseInt(input);
+        } catch (NumberFormatException ignored) {
         }
 
-        try {
-            return LocalTime.parse(input, ConditionalTextPlugin.getInstance().getTimeFormatter());
-        } catch (DateTimeParseException e) {
-            ConsoleOutput.getInstance().debug("Input is not a time.");
-        }
+        if (out == null)
+            try {
+                return Double.parseDouble(input);
+            } catch (NumberFormatException ignored) {
+            }
 
-        ConsoleOutput.getInstance().debug("Returning as a string.");
-        return input;
+        if (out == null)
+            try {
+                return LocalTime.parse(input, ConditionalTextPlugin.getInstance().getTimeFormatter());
+            } catch (DateTimeParseException ignored) {
+            }
+
+        if (out == null) out = input;
+
+        ConsoleOutput.getInstance().debug("Object parsed: " + input + " -> " + out.toString() + " (" + out.getClass().getSimpleName() + ")");
+        return out;
     }
 }
