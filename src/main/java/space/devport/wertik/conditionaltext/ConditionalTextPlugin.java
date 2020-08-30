@@ -1,8 +1,12 @@
 package space.devport.wertik.conditionaltext;
 
 import lombok.Getter;
+import me.clip.placeholderapi.PlaceholderAPI;
+import me.clip.placeholderapi.PlaceholderAPIPlugin;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import space.devport.utils.DevportPlugin;
 import space.devport.utils.UsageFlag;
+import space.devport.utils.utility.VersionUtil;
 import space.devport.wertik.conditionaltext.commands.ConditionalTextCommand;
 import space.devport.wertik.conditionaltext.commands.subcommands.ReloadSubCommand;
 import space.devport.wertik.conditionaltext.commands.subcommands.TrySubCommand;
@@ -43,15 +47,31 @@ public class ConditionalTextPlugin extends DevportPlugin {
         this.timeFormatter = DateTimeFormatter.ofPattern(this.configuration.getString("formats.time", "H:m:s"));
     }
 
+    private void unregisterPlaceholders() {
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null &&
+                PlaceholderAPI.isRegistered("conditionaltext") &&
+                VersionUtil.compareVersions(PlaceholderAPIPlugin.getInstance().getDescription().getVersion(), "2.10.9") >= 0) {
+
+            PlaceholderExpansion expansion = PlaceholderAPIPlugin.getInstance().getLocalExpansionManager().getExpansion("conditionaltext");
+
+            if (expansion != null) {
+                expansion.unregister();
+                consoleOutput.info("Unregistered old expansion version...");
+            }
+        }
+    }
+
     private void setupPlaceholders() {
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            //TODO unregister on 2.10.9+
+            unregisterPlaceholders();
             new ConditionalTextExpansion(this).register();
+            consoleOutput.info("Registered placeholder expansion.");
         }
     }
 
     @Override
     public void onPluginDisable() {
+        unregisterPlaceholders();
     }
 
     @Override

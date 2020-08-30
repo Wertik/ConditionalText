@@ -2,7 +2,6 @@ package space.devport.wertik.conditionaltext.system.struct.operator;
 
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.Nullable;
-import space.devport.utils.ConsoleOutput;
 import space.devport.wertik.conditionaltext.system.struct.operator.impl.ObjectOperatorFunction;
 
 import java.time.LocalTime;
@@ -16,17 +15,12 @@ public class Operators {
 
     static {
         operatorFunctions.put("<", (input, required) -> {
-            ConsoleOutput.getInstance().debug("Operator < values: " + input.toString() + " - " + required.toString());
 
-            // Numbers
             if (input instanceof Number && required instanceof Number) {
-                ConsoleOutput.getInstance().debug("They're both numbers.");
                 return ((Number) input).floatValue() < ((Number) required).floatValue();
             }
 
-            // Time
             if (input instanceof LocalTime && required instanceof LocalTime) {
-                ConsoleOutput.getInstance().debug("Both are times.");
                 return ((LocalTime) input).isBefore((LocalTime) required);
             }
 
@@ -113,12 +107,7 @@ public class Operators {
             return false;
         });
 
-        operatorFunctions.put("!empty", (input, required) -> {
-            if (input instanceof String) {
-                return !((String) input).isEmpty();
-            }
-            return false;
-        });
+        operatorFunctions.put("!empty", (input, required) -> !String.valueOf(input).isEmpty());
     }
 
     @Nullable
