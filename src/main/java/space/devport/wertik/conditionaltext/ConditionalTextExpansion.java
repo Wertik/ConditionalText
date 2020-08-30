@@ -40,8 +40,6 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
 
         String[] args = Arrays.copyOfRange(params.split("_"), 1, params.split("_").length);
 
-        plugin.getConsoleOutput().debug("Custom arguments: " + Arrays.toString(args));
-
         String output = setting.process(player, args);
 
         return output == null ? "" : output;

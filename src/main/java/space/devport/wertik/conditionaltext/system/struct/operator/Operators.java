@@ -66,46 +66,11 @@ public class Operators {
             return false;
         });
 
-        operatorFunctions.put("=", (input, required) -> {
+        operatorFunctions.put("=", Object::equals);
 
-            if (input instanceof Number && required instanceof Number) {
-                return ((Number) input).floatValue() == ((Number) required).floatValue();
-            }
+        operatorFunctions.put("!=", (input, required) -> !input.equals(required));
 
-            if (input instanceof String && required instanceof String) {
-                return ((String) input).equalsIgnoreCase((String) required);
-            }
-
-            if (input instanceof LocalTime && required instanceof LocalTime) {
-                return input.equals(required);
-            }
-
-            return false;
-        });
-
-        operatorFunctions.put("!=", (input, required) -> {
-
-            if (input instanceof Number && required instanceof Number) {
-                return ((Number) input).floatValue() != ((Number) required).floatValue();
-            }
-
-            if (input instanceof String && required instanceof String) {
-                return !((String) input).equalsIgnoreCase((String) required);
-            }
-
-            if (input instanceof LocalTime && required instanceof LocalTime) {
-                return !input.equals(required);
-            }
-
-            return false;
-        });
-
-        operatorFunctions.put("empty", (input, required) -> {
-            if (input instanceof String) {
-                return ((String) input).isEmpty();
-            }
-            return false;
-        });
+        operatorFunctions.put("empty", (input, required) -> String.valueOf(input).isEmpty());
 
         operatorFunctions.put("!empty", (input, required) -> !String.valueOf(input).isEmpty());
     }

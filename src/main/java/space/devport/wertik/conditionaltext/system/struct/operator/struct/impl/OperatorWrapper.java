@@ -14,7 +14,7 @@ public class OperatorWrapper {
 
     public boolean apply(Object input, Object required) {
         boolean bool = function.apply(input, required);
-        ConsoleOutput.getInstance().debug("'" + input.toString() + "' " + sign + " '" + required + "' -> " + bool);
+        ConsoleOutput.getInstance().debug("'" + input.toString() + "' (" + input.getClass().getSimpleName() + ") " + sign + " '" + required + "' (" + required.getClass().getSimpleName() + ") -> " + bool);
         return bool;
     }
 }
