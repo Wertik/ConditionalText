@@ -4,29 +4,22 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import space.devport.utils.commands.SubCommand;
 import space.devport.utils.commands.struct.ArgumentRange;
 import space.devport.utils.commands.struct.CommandResult;
-import space.devport.utils.commands.struct.Preconditions;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
+import space.devport.wertik.conditionaltext.commands.ConditionalTextSubCommand;
 import space.devport.wertik.conditionaltext.system.struct.Setting;
 
-public class TrySubCommand extends SubCommand {
+public class TrySubCommand extends ConditionalTextSubCommand {
 
-    private final ConditionalTextPlugin plugin;
-
-    public TrySubCommand() {
-        super("try");
-        this.plugin = ConditionalTextPlugin.getInstance();
-
-        this.preconditions = new Preconditions()
-                .permissions("conditionaltext.try");
+    public TrySubCommand(ConditionalTextPlugin plugin) {
+        super(plugin, "try");
     }
 
     @Override
     protected CommandResult perform(CommandSender sender, String label, String[] args) {
 
-        Setting setting = plugin.getSettingManager().getSetting(args[0]);
+        Setting setting = getPlugin().getSettingManager().getSetting(args[0]);
 
         if (setting == null) {
             language.getPrefixed("Commands.Invalid-Setting")
@@ -53,7 +46,7 @@ public class TrySubCommand extends SubCommand {
             }
         }
 
-        String output = args.length > 2 ? setting.process(args[2]) : setting.process((Player) target, new String[0]);
+        String output = args.length > 2 ? setting.process(args[2]) : setting.process(target, new String[0]);
 
         language.getPrefixed("Commands.Try.Output")
                 .replace("%result%", output == null ? "" : output)

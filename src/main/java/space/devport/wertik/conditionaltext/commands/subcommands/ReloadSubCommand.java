@@ -2,23 +2,20 @@ package space.devport.wertik.conditionaltext.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import space.devport.utils.commands.SubCommand;
 import space.devport.utils.commands.struct.ArgumentRange;
 import space.devport.utils.commands.struct.CommandResult;
-import space.devport.utils.commands.struct.Preconditions;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
+import space.devport.wertik.conditionaltext.commands.ConditionalTextSubCommand;
 
-public class ReloadSubCommand extends SubCommand {
+public class ReloadSubCommand extends ConditionalTextSubCommand {
 
-    public ReloadSubCommand() {
-        super("reload");
-        this.preconditions = new Preconditions()
-                .permissions("conditionaltext.reload");
+    public ReloadSubCommand(ConditionalTextPlugin plugin) {
+        super(plugin, "reload");
     }
 
     @Override
     protected CommandResult perform(CommandSender sender, String label, String[] args) {
-        ConditionalTextPlugin.getInstance().reload(sender);
+        getPlugin().reload(sender);
         return CommandResult.SUCCESS;
     }
 

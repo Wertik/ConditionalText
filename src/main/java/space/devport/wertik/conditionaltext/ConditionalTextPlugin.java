@@ -17,9 +17,6 @@ import java.time.format.DateTimeFormatter;
 public class ConditionalTextPlugin extends DevportPlugin {
 
     @Getter
-    private static ConditionalTextPlugin instance;
-
-    @Getter
     private SettingManager settingManager;
 
     @Getter
@@ -27,8 +24,6 @@ public class ConditionalTextPlugin extends DevportPlugin {
 
     @Override
     public void onPluginEnable() {
-        instance = this;
-
         loadOptions();
 
         settingManager = new SettingManager(this);
@@ -37,8 +32,8 @@ public class ConditionalTextPlugin extends DevportPlugin {
         setupPlaceholders();
 
         addMainCommand(new ConditionalTextCommand())
-                .addSubCommand(new ReloadSubCommand())
-                .addSubCommand(new TrySubCommand());
+                .addSubCommand(new ReloadSubCommand(this))
+                .addSubCommand(new TrySubCommand(this));
 
         new ConditionalTextLanguage();
     }
@@ -84,5 +79,9 @@ public class ConditionalTextPlugin extends DevportPlugin {
     @Override
     public UsageFlag[] usageFlags() {
         return new UsageFlag[]{UsageFlag.LANGUAGE, UsageFlag.COMMANDS, UsageFlag.CONFIGURATION};
+    }
+
+    public static ConditionalTextPlugin getInstance() {
+        return getPlugin(ConditionalTextPlugin.class);
     }
 }
