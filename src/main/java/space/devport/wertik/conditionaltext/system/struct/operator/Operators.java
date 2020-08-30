@@ -105,6 +105,20 @@ public class Operators {
 
             return false;
         });
+
+        operatorFunctions.put("empty", (input, required) -> {
+            if (input instanceof String) {
+                return ((String) input).isEmpty();
+            }
+            return false;
+        });
+
+        operatorFunctions.put("!empty", (input, required) -> {
+            if (input instanceof String) {
+                return !((String) input).isEmpty();
+            }
+            return false;
+        });
     }
 
     @Nullable

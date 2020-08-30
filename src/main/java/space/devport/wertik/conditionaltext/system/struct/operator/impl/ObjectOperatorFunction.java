@@ -4,5 +4,5 @@ import space.devport.wertik.conditionaltext.system.struct.operator.OperatorFunct
 
 public interface ObjectOperatorFunction extends OperatorFunction<Object, Object, Boolean> {
     @Override
-    Boolean apply(Object input1, Object input2);
+    Boolean apply(Object input, Object required);
 }
