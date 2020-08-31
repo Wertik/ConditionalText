@@ -50,6 +50,7 @@ When figuring out which text to use, the plugin goes from the top down and which
 
 Conditions should always have a valid operator on the left side and the limit number on the right. ``<10, >50, !=100``
 
+Any type operators: `empty, !empty` (check if a placeholder returns empty value)
 Valid string operators: `=, !=`\
 Valid number operators: `=, !=, <, >, <=, >=`\
 Valid time operators: `=, !=, <, >, <=, >=`
