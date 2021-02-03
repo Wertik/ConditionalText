@@ -2,8 +2,12 @@
 #
 # Version: ${project.version}
 
-plugin-prefix: '&eConditionalText &8>> '
-debug-enabled: true
+plugin-prefix: '&eConditionalText &8| '
+debug-enabled: false
+
+# Configure the placeholder identifier.
+# PAPI format: %<identifier>_(params)%
+placeholder-identifier: 'conditionaltext'
 
 # Define default formats
 formats:

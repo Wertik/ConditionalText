@@ -1,80 +1,55 @@
 package space.devport.wertik.conditionaltext.system;
 
-import lombok.RequiredArgsConstructor;
-import org.bukkit.configuration.ConfigurationSection;
+import lombok.Getter;
+import lombok.extern.java.Log;
+import org.jetbrains.annotations.Nullable;
 import space.devport.utils.configuration.Configuration;
+import space.devport.utils.logging.DebugLevel;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
-import space.devport.wertik.conditionaltext.exceptions.InvalidOperatorException;
-import space.devport.wertik.conditionaltext.system.struct.Rule;
 import space.devport.wertik.conditionaltext.system.struct.Setting;
-import space.devport.wertik.conditionaltext.system.utils.ParserUtil;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequiredArgsConstructor
+@Log
 public class SettingManager {
 
     private final ConditionalTextPlugin plugin;
 
     private final Map<String, Setting> loadedSettings = new HashMap<>();
 
-    private Configuration settings;
+    @Getter
+    private final Configuration config;
 
-    public Setting getSetting(String settingName) {
-        return this.loadedSettings.getOrDefault(settingName, null);
+    public SettingManager(ConditionalTextPlugin plugin) {
+        this.plugin = plugin;
+        this.config = new Configuration(plugin, "settings");
     }
 
-    public void loadSettings() {
+    public void load() {
+        loadedSettings.clear();
+        config.load();
 
-        this.loadedSettings.clear();
+        for (String settingName : config.getFileConfiguration().getKeys(false)) {
+            Setting setting = Setting.load(config, settingName);
 
-        if (settings == null)
-            settings = new Configuration(plugin, "settings");
-        else
-            settings.load();
-
-        for (String settingName : settings.getFileConfiguration().getKeys(false)) {
-            Setting setting = loadSetting(settingName);
-
-            if (setting == null) continue;
-
-            this.loadedSettings.put(settingName, setting);
-        }
-
-        plugin.getConsoleOutput().info("Loaded " + this.loadedSettings.size() + " setting(s)...");
-    }
-
-    private Setting loadSetting(String name) {
-        ConfigurationSection section = settings.getFileConfiguration().getConfigurationSection(name);
-
-        if (section == null) {
-            plugin.getConsoleOutput().err("Could not load setting " + name + ", section does not exist.");
-            return null;
-        }
-
-        String placeholder = section.getString("placeholder", null);
-
-        if (placeholder == null) {
-            plugin.getConsoleOutput().err("Could not load setting " + name + ", there's not placeholder defined.");
-            return null;
-        }
-
-        Setting setting = new Setting(placeholder);
-
-        for (String ruleString : section.getStringList("rules")) {
-
-            Rule rule;
-            try {
-                rule = ParserUtil.parseRule(ruleString);
-            } catch (InvalidOperatorException e) {
-                plugin.getConsoleOutput().err("Could not parse rule " + ruleString + " in setting " + name + ", reason: " + e.getMessage());
+            if (setting == null)
                 continue;
-            }
 
-            setting.addRule(rule);
+            loadedSettings.put(settingName, setting);
+            log.log(DebugLevel.DEBUG, String.format("Loaded setting %s", settingName));
         }
 
-        return setting;
+        log.info(String.format("Loaded %d setting(s)...", loadedSettings.size()));
+    }
+
+    @Nullable
+    public Setting getSetting(String settingName) {
+        return loadedSettings.get(settingName);
+    }
+
+    public Map<String, Setting> getSettings() {
+        return Collections.unmodifiableMap(loadedSettings);
     }
 }

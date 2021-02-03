@@ -2,8 +2,10 @@ package space.devport.wertik.conditionaltext.system.struct.operator.struct.impl;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import space.devport.utils.ConsoleOutput;
+import lombok.extern.java.Log;
+import space.devport.utils.logging.DebugLevel;
 
+@Log
 @RequiredArgsConstructor
 public class OperatorWrapper {
 
@@ -14,7 +16,8 @@ public class OperatorWrapper {
 
     public boolean apply(Object input, Object required) {
         boolean bool = function.apply(input, required);
-        ConsoleOutput.getInstance().debug("'" + input.toString() + "' (" + input.getClass().getSimpleName() + ") " + sign + " '" + required + "' (" + required.getClass().getSimpleName() + ") -> " + bool);
+        log.log(DebugLevel.DEBUG, String.format("'%s' (%s) %s '%s' (%s) -> %b",
+                required, required.getClass().getSimpleName(), sign, input, input.getClass().getSimpleName(), bool));
         return bool;
     }
 }

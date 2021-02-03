@@ -12,7 +12,7 @@ public abstract class ConditionalTextSubCommand extends SubCommand {
     private final ConditionalTextPlugin plugin;
 
     public ConditionalTextSubCommand(ConditionalTextPlugin plugin, String name) {
-        super(name);
+        super(plugin, name);
         setPermissions();
         this.plugin = plugin;
     }

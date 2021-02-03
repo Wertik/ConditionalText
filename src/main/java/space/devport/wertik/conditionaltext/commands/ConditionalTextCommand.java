@@ -1,18 +1,24 @@
 package space.devport.wertik.conditionaltext.commands;
 
-import org.bukkit.command.CommandSender;
 import space.devport.utils.commands.MainCommand;
 import space.devport.utils.commands.struct.CommandResult;
+import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
+import space.devport.wertik.conditionaltext.commands.subcommands.TrySubCommand;
 
 public class ConditionalTextCommand extends MainCommand {
 
-    public ConditionalTextCommand() {
-        super("conditionaltext");
-    }
+    public ConditionalTextCommand(ConditionalTextPlugin plugin) {
+        super(plugin, "conditionaltext");
 
-    @Override
-    protected CommandResult perform(CommandSender sender, String label, String[] args) {
-        return super.perform(sender, label, args);
+        withSubCommand(plugin.buildSubCommand("reload")
+                .withDefaultUsage("/%label% reload")
+                .withDefaultDescription("Reload the plugin.")
+                .withRange(0)
+                .withExecutor((sender, label, args) -> {
+                    plugin.reload(sender);
+                    return CommandResult.SUCCESS;
+                }));
+        withSubCommand(new TrySubCommand(plugin));
     }
 
     @Override

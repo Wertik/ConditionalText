@@ -17,7 +17,7 @@ public class TrySubCommand extends ConditionalTextSubCommand {
     }
 
     @Override
-    protected CommandResult perform(CommandSender sender, String label, String[] args) {
+    protected @NotNull CommandResult perform(@NotNull CommandSender sender, @NotNull String label, String[] args) {
 
         Setting setting = getPlugin().getSettingManager().getSetting(args[0]);
 

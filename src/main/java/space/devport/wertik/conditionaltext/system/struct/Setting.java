@@ -1,9 +1,13 @@
 package space.devport.wertik.conditionaltext.system.struct;
 
 import lombok.Getter;
+import lombok.extern.java.Log;
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
+import space.devport.utils.configuration.Configuration;
+import space.devport.utils.logging.DebugLevel;
 import space.devport.utils.text.StringUtil;
 import space.devport.wertik.conditionaltext.system.utils.ParserUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
@@ -12,6 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+@Log
 public class Setting {
 
     @Getter
@@ -31,13 +36,44 @@ public class Setting {
         this.rawRules = rawRules;
     }
 
-    public void addRule(Rule rule) {
-        this.rules.add(rule);
+    @Nullable
+    public static Setting load(Configuration config, String path) {
+        ConfigurationSection section = config.getFileConfiguration().getConfigurationSection(path);
+
+        if (section == null) {
+            log.warning(String.format("Could not load setting from %s, section does not exist.", config.composePath(path)));
+            return null;
+        }
+
+        String placeholder = section.getString("placeholder");
+
+        if (placeholder == null) {
+            log.warning(String.format("Could not load setting %s, there's no placeholder defined at %s.", section.getName(), config.composePath(path + ".placeholder")));
+            return null;
+        }
+
+        Setting setting = new Setting(placeholder);
+
+        for (String ruleString : section.getStringList("rules")) {
+            Rule rule = Rule.fromString(ruleString);
+
+            if (rule == null) {
+                log.warning(String.format("Could not load rule from %s at %s, it has an invalid operator.", ruleString, config.composePath(path + ".rules")));
+                continue;
+            }
+
+            setting.addRule(rule);
+            log.log(DebugLevel.DEBUG, String.format("Loaded rule %s", rule.toString()));
+        }
+
+        return setting;
     }
 
-    /**
-     * Process the Setting and output the formatted text based on rules.
-     */
+    public void addRule(Rule rule) {
+        rules.add(rule);
+    }
+
+    //Process the Setting and output the formatted text based on rules.
     @Nullable
     public String process(Player player, String... arguments) {
         String placeholder = parseArguments(this.placeholder, arguments);
