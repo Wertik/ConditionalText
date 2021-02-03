@@ -16,7 +16,7 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        return "conditionaltext";
+        return plugin.getPlaceholderIdentifier();
     }
 
     @Override
@@ -32,11 +32,13 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, @NotNull String params) {
 
-        if (Strings.isNullOrEmpty(params)) return "invalid_params";
+        if (Strings.isNullOrEmpty(params))
+            return "invalid-params";
 
         Setting setting = plugin.getSettingManager().getSetting(params.split("_")[0]);
 
-        if (setting == null) return "invalid_setting";
+        if (setting == null)
+            return "invalid-setting";
 
         String[] args = Arrays.copyOfRange(params.split("_"), 1, params.split("_").length);
 

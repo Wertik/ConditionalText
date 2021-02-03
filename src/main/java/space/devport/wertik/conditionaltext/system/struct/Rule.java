@@ -36,7 +36,7 @@ public class Rule {
         return condition == null ? null : new Rule(arr.length > 1 ? arr[1] : "", condition);
     }
 
-    public boolean check(Object value, Player... player) {
+    public boolean check(Object value, @Nullable Player player) {
         return !hasCondition() || condition.check(value, player);
     }
 

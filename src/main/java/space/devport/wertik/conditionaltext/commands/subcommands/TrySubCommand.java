@@ -30,7 +30,8 @@ public class TrySubCommand extends ConditionalTextSubCommand {
 
         Player target;
         if (args[1].equalsIgnoreCase("me")) {
-            if (!(sender instanceof Player)) return CommandResult.NO_CONSOLE;
+            if (!(sender instanceof Player))
+                return CommandResult.NO_CONSOLE;
 
             target = (Player) sender;
         } else if (args[1].equalsIgnoreCase("none")) {

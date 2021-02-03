@@ -85,7 +85,7 @@ public class Setting {
         return StringUtil.color(output != null ? PlaceholderAPI.setPlaceholders(player, output) : null);
     }
 
-    private String parseArguments(String string, String... arguments) {
+    private String parseArguments(String string, String[] arguments) {
         for (int n = 0; n < arguments.length; n++) {
             String argument = arguments[n];
             string = string.replace("$" + n, argument);
@@ -94,12 +94,12 @@ public class Setting {
     }
 
     @Nullable
-    public String process(String stringValue) {
-        return process(ParserUtil.parseObject(stringValue));
+    public String process(String value) {
+        return process(ParserUtil.parseObject(value));
     }
 
     @Nullable
-    public String process(Object value, Player player) {
+    public String process(Object value, @Nullable Player player) {
         for (Rule rule : rules) {
             if (rule.check(value, player))
                 return rule.getOutputFormatted();
@@ -109,10 +109,6 @@ public class Setting {
 
     @Nullable
     public String process(Object value) {
-        for (Rule rule : rules) {
-            if (rule.check(value))
-                return rule.getOutputFormatted();
-        }
-        return null;
+        return process(value, null);
     }
 }
