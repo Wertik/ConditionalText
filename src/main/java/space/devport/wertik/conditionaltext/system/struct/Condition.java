@@ -2,8 +2,7 @@ package space.devport.wertik.conditionaltext.system.struct;
 
 import com.google.common.base.Strings;
 import lombok.Getter;
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.Nullable;
 import space.devport.wertik.conditionaltext.system.struct.operator.Operators;
 import space.devport.wertik.conditionaltext.system.struct.operator.struct.impl.OperatorWrapper;
@@ -41,12 +40,12 @@ public class Condition {
         return operator == null ? null : new Condition(ParserUtil.parseObject(input), operator);
     }
 
-    public boolean check(Object value, @Nullable Player player) {
+    public boolean check(Object value, @Nullable OfflinePlayer player) {
         Object required = this.required;
 
         // Parse placeholders in String requirements
-        if (required instanceof String && player != null)
-            required = ParserUtil.parseObject(PlaceholderUtil.parsePlaceholder(player, (String) required));
+        if (required instanceof String)
+            required = ParserUtil.parseObject(PlaceholderUtil.parsePlaceholders(player, (String) required));
 
         return operator.apply(value, required);
     }

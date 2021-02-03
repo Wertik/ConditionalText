@@ -1,6 +1,7 @@
 package space.devport.wertik.conditionaltext.commands.subcommands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +17,7 @@ public class TrySubCommand extends ConditionalTextSubCommand {
         super(plugin, "try");
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected @NotNull CommandResult perform(@NotNull CommandSender sender, @NotNull String label, String[] args) {
 
@@ -28,26 +30,18 @@ public class TrySubCommand extends ConditionalTextSubCommand {
             return CommandResult.FAILURE;
         }
 
-        Player target;
+        OfflinePlayer target;
         if (args[1].equalsIgnoreCase("me")) {
             if (!(sender instanceof Player))
                 return CommandResult.NO_CONSOLE;
 
             target = (Player) sender;
-        } else if (args[1].equalsIgnoreCase("none")) {
+        } else if (args[1].equalsIgnoreCase("none"))
             target = null;
-        } else {
-            target = Bukkit.getPlayer(args[1]);
+        else
+            target = Bukkit.getOfflinePlayer(args[1]);
 
-            if (target == null) {
-                language.getPrefixed("Commands.Invalid-Target")
-                        .replace("%param%", args[1])
-                        .send(sender);
-                return CommandResult.FAILURE;
-            }
-        }
-
-        String output = args.length > 2 ? setting.process(args[2]) : setting.process(target, new String[0]);
+        String output = args.length > 2 ? setting.process(target, args[2], new String[0]) : setting.process(target);
 
         language.getPrefixed("Commands.Try.Output")
                 .replace("%result%", output == null ? "" : output)

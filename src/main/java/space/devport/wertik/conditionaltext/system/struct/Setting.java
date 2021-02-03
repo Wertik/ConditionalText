@@ -3,13 +3,12 @@ package space.devport.wertik.conditionaltext.system.struct;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 import space.devport.utils.configuration.Configuration;
 import space.devport.utils.logging.DebugLevel;
 import space.devport.utils.text.StringUtil;
-import space.devport.wertik.conditionaltext.system.utils.ParserUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
 import java.util.ArrayList;
@@ -73,16 +72,39 @@ public class Setting {
         rules.add(rule);
     }
 
-    //Process the Setting and output the formatted text based on rules.
+    // Process the given value and output the formatted text based on rules.
     @Nullable
-    public String process(Player player, String... arguments) {
-        String placeholder = parseArguments(this.placeholder, arguments);
-
-        String output = process(PlaceholderUtil.parsePlaceholderIntoObject(player, placeholder), player);
+    public String process(@Nullable OfflinePlayer player, Object value, String... arguments) {
+        String output = process(player, value);
 
         output = parseArguments(output, arguments);
 
         return StringUtil.color(output != null ? PlaceholderAPI.setPlaceholders(player, output) : null);
+    }
+
+    @Nullable
+    public String process(@Nullable OfflinePlayer player, String valueString, String... arguments) {
+        Object value = PlaceholderUtil.parsePlaceholderIntoObject(player, valueString);
+        return process(player, value, arguments);
+    }
+
+    // Process the Setting placeholder and output the formatted text based on rules.
+    @Nullable
+    public String process(@Nullable OfflinePlayer player, String... arguments) {
+        String placeholder = parseArguments(this.placeholder, arguments);
+        Object value = PlaceholderUtil.parsePlaceholderIntoObject(player, placeholder);
+        return process(player, value, arguments);
+    }
+
+    // Run rules for given Object value.
+    // Return the raw output.
+    @Nullable
+    public String process(@Nullable OfflinePlayer player, Object value) {
+        for (Rule rule : rules) {
+            if (rule.check(value, player))
+                return rule.getOutput();
+        }
+        return null;
     }
 
     private String parseArguments(String string, String[] arguments) {
@@ -91,24 +113,5 @@ public class Setting {
             string = string.replace("$" + n, argument);
         }
         return string;
-    }
-
-    @Nullable
-    public String process(String value) {
-        return process(ParserUtil.parseObject(value));
-    }
-
-    @Nullable
-    public String process(Object value, @Nullable Player player) {
-        for (Rule rule : rules) {
-            if (rule.check(value, player))
-                return rule.getOutputFormatted();
-        }
-        return null;
-    }
-
-    @Nullable
-    public String process(Object value) {
-        return process(value, null);
     }
 }

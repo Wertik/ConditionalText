@@ -1,9 +1,8 @@
 package space.devport.wertik.conditionaltext.system.struct;
 
 import lombok.Getter;
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.Nullable;
-import space.devport.utils.text.StringUtil;
 
 public class Rule {
 
@@ -36,16 +35,12 @@ public class Rule {
         return condition == null ? null : new Rule(arr.length > 1 ? arr[1] : "", condition);
     }
 
-    public boolean check(Object value, @Nullable Player player) {
+    public boolean check(Object value, @Nullable OfflinePlayer player) {
         return !hasCondition() || condition.check(value, player);
     }
 
     public boolean hasCondition() {
         return condition != null;
-    }
-
-    public String getOutputFormatted() {
-        return StringUtil.color(output);
     }
 
     @Override
