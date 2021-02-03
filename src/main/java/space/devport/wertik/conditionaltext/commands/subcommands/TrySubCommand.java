@@ -5,11 +5,16 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import space.devport.utils.commands.struct.ArgumentRange;
 import space.devport.utils.commands.struct.CommandResult;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.commands.ConditionalTextSubCommand;
 import space.devport.wertik.conditionaltext.system.struct.Setting;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TrySubCommand extends ConditionalTextSubCommand {
 
@@ -47,6 +52,21 @@ public class TrySubCommand extends ConditionalTextSubCommand {
                 .replace("%result%", output == null ? "" : output)
                 .send(sender);
         return CommandResult.SUCCESS;
+    }
+
+    @Override
+    public @Nullable List<String> requestTabComplete(@NotNull CommandSender sender, String[] args) {
+        if (args.length == 1) {
+            return new ArrayList<>(getPlugin().getSettingManager().getSettings().keySet());
+        } else if (args.length == 2) {
+            List<String> out = Bukkit.getOnlinePlayers().stream()
+                    .map(Player::getName)
+                    .collect(Collectors.toList());
+            out.add("none");
+            out.add("me");
+            return out;
+        }
+        return null;
     }
 
     @Override
