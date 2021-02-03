@@ -11,7 +11,6 @@ import space.devport.utils.logging.DebugLevel;
 import space.devport.utils.text.StringUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,18 +20,10 @@ public class Setting {
     @Getter
     private final String placeholder;
 
-    @Getter
-    private List<String> rawRules = new ArrayList<>();
-
     private final List<Rule> rules = new LinkedList<>();
 
     public Setting(String placeholder) {
         this.placeholder = placeholder;
-    }
-
-    public Setting(String placeholder, List<String> rawRules) {
-        this.placeholder = placeholder;
-        this.rawRules = rawRules;
     }
 
     @Nullable
