@@ -4,8 +4,10 @@
 
 # Define a name for the setting.
 setting-one:
+
   # Set a placeholder to base conditions on.
   placeholder: '%player_health%'
+
   # Define the rules to parse by.
   # Rules are checked top to bottom one by one, whichever passes first is used.
   rules:
@@ -15,10 +17,12 @@ setting-one:
     - "<6;&eA bit low, but fine."
     - "&aHealthy as ever!"
 
-time-setting:
+time:
+
   # You can add extra arguments to placeholders.
-  # The $0 argument would be filled by using the following: %conditionaltext_time-setting_world% ( $0 = world )
+  # The $0 argument would be filled by using the following: %conditionaltext_time_world% ( $0 = world )
   placeholder: '%world_time_$0%'
+
   rules:
     - '<10:0:0;&7&ogooob moorning.'
     - '<14:0:0;&7&otime for lunch, munch munch.'
