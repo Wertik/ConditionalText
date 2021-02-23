@@ -6,27 +6,15 @@ import space.devport.wertik.conditionaltext.system.struct.operator.struct.impl.O
 
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @UtilityClass
 public class Operators {
 
-    public Map<String, ObjectOperator> operatorFunctions = new HashMap<>();
+    public Map<String, ObjectOperator> operatorFunctions = new LinkedHashMap<>();
 
     static {
-        operatorFunctions.put("<", (input, required) -> {
-
-            if (input instanceof Number && required instanceof Number) {
-                return ((Number) input).floatValue() < ((Number) required).floatValue();
-            }
-
-            if (input instanceof LocalTime && required instanceof LocalTime) {
-                return ((LocalTime) input).isBefore((LocalTime) required);
-            }
-
-            return false;
-        });
-
         operatorFunctions.put("<=", (input, required) -> {
 
             if (input instanceof Number && required instanceof Number) {
@@ -40,19 +28,6 @@ public class Operators {
             return false;
         });
 
-        operatorFunctions.put(">", (input, required) -> {
-
-            if (input instanceof Number && required instanceof Number) {
-                return ((Number) input).floatValue() > ((Number) required).floatValue();
-            }
-
-            if (input instanceof LocalTime && required instanceof LocalTime) {
-                return ((LocalTime) input).isAfter((LocalTime) required);
-            }
-
-            return false;
-        });
-
         operatorFunctions.put(">=", (input, required) -> {
 
             if (input instanceof Number && required instanceof Number) {
@@ -61,6 +36,32 @@ public class Operators {
 
             if (input instanceof LocalTime && required instanceof LocalTime) {
                 return ((LocalTime) input).isAfter((LocalTime) required) || input.equals(required);
+            }
+
+            return false;
+        });
+
+        operatorFunctions.put("<", (input, required) -> {
+
+            if (input instanceof Number && required instanceof Number) {
+                return ((Number) input).floatValue() < ((Number) required).floatValue();
+            }
+
+            if (input instanceof LocalTime && required instanceof LocalTime) {
+                return ((LocalTime) input).isBefore((LocalTime) required);
+            }
+
+            return false;
+        });
+
+        operatorFunctions.put(">", (input, required) -> {
+
+            if (input instanceof Number && required instanceof Number) {
+                return ((Number) input).floatValue() > ((Number) required).floatValue();
+            }
+
+            if (input instanceof LocalTime && required instanceof LocalTime) {
+                return ((LocalTime) input).isAfter((LocalTime) required);
             }
 
             return false;
