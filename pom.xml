@@ -68,7 +68,7 @@
         </repository>
         <repository>
             <id>devport</id>
-            <url>http://play.pvpcraft.cz:8081/repository/devport/</url>
+            <url>https://nexus.pvpcraft.cz/repository/devport/</url>
         </repository>
         <repository>
             <id>placeholderapi</id>

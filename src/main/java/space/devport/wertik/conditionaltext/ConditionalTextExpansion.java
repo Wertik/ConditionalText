@@ -30,6 +30,11 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
     }
 
     @Override
+    public boolean persist() {
+        return true;
+    }
+
+    @Override
     public String onPlaceholderRequest(Player player, @NotNull String params) {
 
         if (Strings.isNullOrEmpty(params))
