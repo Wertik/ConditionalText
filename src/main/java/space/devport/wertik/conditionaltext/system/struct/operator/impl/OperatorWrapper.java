@@ -1,4 +1,4 @@
-package space.devport.wertik.conditionaltext.system.struct.operator.struct.impl;
+package space.devport.wertik.conditionaltext.system.struct.operator.impl;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

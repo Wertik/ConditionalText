@@ -2,12 +2,13 @@ package space.devport.wertik.conditionaltext.system.struct.operator;
 
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.Nullable;
-import space.devport.wertik.conditionaltext.system.struct.operator.struct.impl.ObjectOperator;
+import space.devport.wertik.conditionaltext.system.struct.operator.impl.ObjectOperator;
 
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @UtilityClass
 public class Operators {
@@ -67,9 +68,25 @@ public class Operators {
             return false;
         });
 
-        operatorFunctions.put("=", Object::equals);
+        operatorFunctions.put("==", Objects::equals);
 
-        operatorFunctions.put("!=", (input, required) -> !input.equals(required));
+        operatorFunctions.put("!==", (a, b) -> !Objects.equals(a, b));
+
+        operatorFunctions.put("=", (input, required) -> {
+            if (input instanceof String && required instanceof String) {
+                return ((String) input).equalsIgnoreCase((String) required);
+            }
+
+            return Objects.equals(input, required);
+        });
+
+        operatorFunctions.put("!=", (input, required) -> {
+            if (input instanceof String && required instanceof String) {
+                return !((String) input).equalsIgnoreCase((String) required);
+            }
+
+            return !Objects.equals(input, required);
+        });
 
         operatorFunctions.put("empty", (input, required) -> String.valueOf(input).isEmpty());
 

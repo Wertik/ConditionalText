@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.Nullable;
 import space.devport.wertik.conditionaltext.system.struct.operator.Operators;
-import space.devport.wertik.conditionaltext.system.struct.operator.struct.impl.OperatorWrapper;
+import space.devport.wertik.conditionaltext.system.struct.operator.impl.OperatorWrapper;
 import space.devport.wertik.conditionaltext.system.utils.ParserUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
