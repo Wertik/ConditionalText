@@ -9,6 +9,9 @@ debug-enabled: false
 # PAPI format: %<identifier>_(params)%
 placeholder-identifier: 'conditionaltext'
 
+# What to return when no rules match the output.
+empty-output: 'no-match'
+
 # Define default formats
 formats:
   time: 'H:m:s'

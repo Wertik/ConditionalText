@@ -49,6 +49,6 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
 
         String output = setting.process(player, args);
 
-        return output == null ? "" : output;
+        return output == null ? plugin.getConfig().getString("empty-output", "no-match") : output;
     }
 }
