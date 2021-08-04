@@ -10,6 +10,8 @@ import space.devport.dock.configuration.Configuration;
 import space.devport.dock.util.StringUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,6 +58,10 @@ public class Setting {
         }
 
         return setting;
+    }
+
+    public Collection<Rule> getRules() {
+        return Collections.unmodifiableList(this.rules);
     }
 
     public void addRule(Rule rule) {
