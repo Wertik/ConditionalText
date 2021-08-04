@@ -3,7 +3,6 @@ package space.devport.wertik.conditionaltext.system.utils;
 import lombok.experimental.UtilityClass;
 import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
-import space.devport.utils.logging.DebugLevel;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 
 import java.time.LocalTime;
@@ -41,7 +40,7 @@ public class ParserUtil {
         if (out == null)
             out = input;
 
-        log.log(DebugLevel.DEBUG, String.format("Parsed: '%s' -> (%s)", input, out.getClass().getSimpleName()));
+        log.fine(String.format("Parsed: '%s' -> (%s)", input, out.getClass().getSimpleName()));
         return out;
     }
 }

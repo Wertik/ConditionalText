@@ -6,9 +6,8 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.Nullable;
-import space.devport.utils.configuration.Configuration;
-import space.devport.utils.logging.DebugLevel;
-import space.devport.utils.text.StringUtil;
+import space.devport.dock.configuration.Configuration;
+import space.devport.dock.util.StringUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
 import java.util.LinkedList;
@@ -53,7 +52,7 @@ public class Setting {
             }
 
             setting.addRule(rule);
-            log.log(DebugLevel.DEBUG, String.format("Loaded rule %s", rule.toString()));
+            log.fine(String.format("Loaded rule %s", rule));
         }
 
         return setting;

@@ -1,7 +1,7 @@
 package space.devport.wertik.conditionaltext.commands;
 
-import space.devport.utils.commands.MainCommand;
-import space.devport.utils.commands.struct.CommandResult;
+import space.devport.dock.commands.MainCommand;
+import space.devport.dock.commands.struct.CommandResult;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.commands.subcommands.TrySubCommand;
 

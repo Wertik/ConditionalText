@@ -1,11 +1,12 @@
 package space.devport.wertik.conditionaltext;
 
-import space.devport.utils.DevportPlugin;
-import space.devport.utils.text.language.LanguageDefaults;
+
+import space.devport.dock.api.IDockedPlugin;
+import space.devport.dock.text.language.LanguageDefaults;
 
 public class ConditionalTextLanguage extends LanguageDefaults {
 
-    public ConditionalTextLanguage(DevportPlugin plugin) {
+    public ConditionalTextLanguage(IDockedPlugin plugin) {
         super(plugin);
     }
 
