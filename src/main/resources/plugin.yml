@@ -1,7 +1,7 @@
 name: ${project.name}
 main: ${project.groupId}.ConditionalTextPlugin
 version: ${project.version}
-authors: [ Wertik1206 ]
+authors: [ qwz ]
 softdepend: [ PlaceholderAPI ]
 api-version: 1.13
 commands:

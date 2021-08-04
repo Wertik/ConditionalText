@@ -14,9 +14,6 @@ public class OperatorWrapper {
     private final ObjectOperator function;
 
     public boolean apply(Object input, Object required) {
-        boolean bool = function.apply(input, required);
-        log.fine(String.format("'%s' (%s) %s '%s' (%s) -> %b",
-                input, input.getClass().getSimpleName(), sign, required, required.getClass().getSimpleName(), bool));
-        return bool;
+        return function.apply(input, required);
     }
 }

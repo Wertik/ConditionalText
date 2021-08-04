@@ -62,32 +62,7 @@ public class Setting {
         rules.add(rule);
     }
 
-    // Process the given value and output the formatted text based on rules.
-    @Nullable
-    public String process(@Nullable OfflinePlayer player, Object value, String... arguments) {
-        String output = process(player, value);
-
-        output = parseArguments(output, arguments);
-
-        return StringUtil.color(output != null ? PlaceholderAPI.setPlaceholders(player, output) : null);
-    }
-
-    @Nullable
-    public String process(@Nullable OfflinePlayer player, String valueString, String... arguments) {
-        Object value = PlaceholderUtil.parsePlaceholderIntoObject(player, valueString);
-        return process(player, value, arguments);
-    }
-
-    // Process the Setting placeholder and output the formatted text based on rules.
-    @Nullable
-    public String process(@Nullable OfflinePlayer player, String... arguments) {
-        String placeholder = parseArguments(this.placeholder, arguments);
-        Object value = PlaceholderUtil.parsePlaceholderIntoObject(player, placeholder);
-        return process(player, value, arguments);
-    }
-
     // Run rules for given Object value.
-    // Return the raw output.
     @Nullable
     public String process(@Nullable OfflinePlayer player, Object value) {
         for (Rule rule : rules) {
@@ -97,6 +72,43 @@ public class Setting {
         return null;
     }
 
+    // Process the given value and output the formatted text based on rules.
+    @Nullable
+    public String process(@Nullable OfflinePlayer player, Object value, String... arguments) {
+
+        // Actually process the value into an output
+        String output = process(player, value);
+
+        // Parse arguments again (in case there were some in the output)
+        output = parseArguments(output, arguments);
+
+        // Parse PAPI again and color the output.
+        return StringUtil.color(output != null ? PlaceholderAPI.setPlaceholders(player, output) : null);
+    }
+
+    @Nullable
+    public String process(@Nullable OfflinePlayer player, String valueString, String... arguments) {
+        Object value = PlaceholderUtil.parsePlaceholderIntoObject(player, valueString);
+
+        log.fine(String.format("Parsed: '%s' -> (%s)", placeholder, value.getClass().getSimpleName()));
+
+        return process(player, value, arguments);
+    }
+
+    // Process the Setting placeholder and output the formatted text based on rules.
+    @Nullable
+    public String process(@Nullable OfflinePlayer player, String... arguments) {
+
+        // Replace $n
+        String placeholder = parseArguments(this.placeholder, arguments);
+
+        // Parse the placeholder into a comparable object.
+        Object value = PlaceholderUtil.parsePlaceholderIntoObject(player, placeholder);
+
+        return process(player, value, arguments);
+    }
+
+    // Replace $n with arguments from the placeholder.
     private String parseArguments(String string, String[] arguments) {
         for (int n = 0; n < arguments.length; n++) {
             String argument = arguments[n];
