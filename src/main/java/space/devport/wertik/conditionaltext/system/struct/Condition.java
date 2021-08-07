@@ -33,7 +33,7 @@ public class Condition {
         for (String sign : Operators.operatorFunctions.keySet()) {
 
             if (input.startsWith(sign)) {
-                input = input.replace(sign, "");
+                input = input.replaceFirst(sign, "");
                 operator = new OperatorWrapper(sign, Operators.getFunction(sign));
                 break;
             }
