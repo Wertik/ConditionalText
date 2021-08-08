@@ -44,8 +44,8 @@
                     <minimizeJar>true</minimizeJar>
                     <relocations>
                         <relocation>
-                            <pattern>space.devport.utils</pattern>
-                            <shadedPattern>${project.groupId}.utils</shadedPattern>
+                            <pattern>space.devport.dock</pattern>
+                            <shadedPattern>${project.groupId}.dock</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
