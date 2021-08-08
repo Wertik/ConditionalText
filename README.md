@@ -52,7 +52,7 @@ Conditions should always have a valid operator on the left side and the limit nu
 
 Any type operators: `empty, !empty` (check if a placeholder returns empty value)\
 Valid string operators: `=, !=`\
-Valid number operators: `=, !=, <, >, <=, >=`\
+Valid number operators: `=, !=, <, >, <=, >=, %`\
 Valid time operators: `=, !=, <, >, <=, >=`
 
 When no condition is specified, it's automatically condidered true -- passing. \
@@ -65,7 +65,7 @@ rules:
   - '&7On your way to a million huh.'
 ```
 
-Since 1.1.2 you can also use placeholders in conditions.
+You can also use other placeholders in conditions.
 ``- '<%some_placeholder%;&7Some text.'``
 
 With strings:
@@ -99,12 +99,12 @@ But first, load the new settings in with a quick `/ct reload`.
 
 Then just use the placeholder ``%conditionaltext_<setting>%`` whereever you desire. (And where PlaceholderAPI is supported)
 
-### Extra feature - custom arguments
+### Arguments in placeholders
 
 It's a useful feature when you want to use one setting for more variations of the same placeholder, for example displaying the amount of keys on multiple crates. 
-It would be a pain to create a setting for each of the crate types.
+It would be painful to create a setting for each of the crate types.
 
-And that's why this is a thing:
+That's when arguments come in handy:
 ```yaml
 custom-arg-setting:
   placeholder: '%specializedcrates_virtual_keys_$0%'
@@ -116,11 +116,12 @@ custom-arg-setting:
 ```
 *Example with [Specialized crates](https://www.spigotmc.org/resources/specialized-crates-1-8-1-16.9047/)*
 
-To provide the `$0` argument, add another param to our placeholder: ``%conditionaltext_<setting>_(args)%``\
-You can add as many of them as you want! Just make sure you're **counting from 0**, because that's the right and only way to count, and seperating each one with an underscore.
+To provide the `$0` argument, add another param to the placeholder: ``%conditionaltext_<setting>_(args)%``\
+You can add as many of them as you want. Just make sure you're **counting from 0** and seperating each one with an underscore.
 
 For the above example with a crate named Epic to display, you'd use ``%conditionaltext_custom-arg-setting_Epic%``
+Then with a different type of crate,.. let's say Mythic: ``%conditionaltext_custom-arg-setting_Mythic%``
 
 ### Help
 
-For help, join [this empty discord server](https://discord.gg/5Suw58j)
+For help, join [this discord server](https://discord.gg/5Suw58j)
