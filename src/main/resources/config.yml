@@ -5,11 +5,10 @@
 plugin-prefix: '&eConditionalText &8| '
 
 ## Plugin log level
-# SEVERE - Errors
-# WARNING - Warnings
+# ERROR - Errors
+# WARN - Warnings
 # INFO - Normal user information
 # FINE - Debug messages
-# (...lower levels are not used)
 log-level: INFO
 
 # Configure the placeholder identifier.
