@@ -40,14 +40,16 @@ public class ConditionalTextExpansion extends PlaceholderExpansion {
         if (Strings.isNullOrEmpty(params))
             return "invalid-params";
 
+        String[] args = params.split("_");
+
         Setting setting = plugin.getSettingManager().getSetting(params.split("_")[0]);
 
         if (setting == null)
             return "invalid-setting";
 
-        String[] args = Arrays.copyOfRange(params.split("_"), 1, params.split("_").length);
+        String[] placeholderArguments = Arrays.copyOfRange(args, 1, args.length);
 
-        String output = setting.process(player, args);
+        String output = setting.process(player, placeholderArguments);
 
         return output == null ? plugin.getConfig().getString("empty-output", "no-match") : output;
     }

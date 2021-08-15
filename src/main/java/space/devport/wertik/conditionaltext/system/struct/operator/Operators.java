@@ -68,6 +68,15 @@ public class Operators {
             return false;
         });
 
+        operatorFunctions.put("%", (input, required) -> {
+
+            if (input instanceof Number && required instanceof Number) {
+                return ((Number) input).floatValue() % ((Number) required).floatValue() == 0;
+            }
+
+            return false;
+        });
+
         operatorFunctions.put("==", Objects::equals);
 
         operatorFunctions.put("!==", (a, b) -> !Objects.equals(a, b));

@@ -3,7 +3,13 @@
 # Version: ${project.version}
 
 plugin-prefix: '&eConditionalText &8| '
-debug-enabled: false
+
+## Plugin log level
+# ERROR - Errors
+# WARN - Warnings
+# INFO - Normal user information
+# FINE - Debug messages
+log-level: INFO
 
 # Configure the placeholder identifier.
 # PAPI format: %<identifier>_(params)%

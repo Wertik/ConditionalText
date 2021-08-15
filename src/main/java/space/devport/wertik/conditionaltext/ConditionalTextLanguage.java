@@ -1,11 +1,12 @@
 package space.devport.wertik.conditionaltext;
 
-import space.devport.utils.DevportPlugin;
-import space.devport.utils.text.language.LanguageDefaults;
+
+import space.devport.dock.api.IDockedPlugin;
+import space.devport.dock.text.language.LanguageDefaults;
 
 public class ConditionalTextLanguage extends LanguageDefaults {
 
-    public ConditionalTextLanguage(DevportPlugin plugin) {
+    public ConditionalTextLanguage(IDockedPlugin plugin) {
         super(plugin);
     }
 
@@ -15,5 +16,10 @@ public class ConditionalTextLanguage extends LanguageDefaults {
         addDefault("Commands.Invalid-Target", "&cPlayer &f%param% &cis invalid.");
 
         addDefault("Commands.Try.Output", "&7Parsed, result: '&r%result%&7'");
+
+        addDefault("Commands.List.Empty", "&7No settings yet.");
+
+        addDefault("Commands.List.Header", "&8&m        &f Loaded Settings &8&m        ");
+        addDefault("Commands.List.Format", "&8 - &f%name% &7( &f%rules% rule(s) &7)");
     }
 }

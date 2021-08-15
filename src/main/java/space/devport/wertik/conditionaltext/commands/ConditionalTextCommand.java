@@ -1,8 +1,9 @@
 package space.devport.wertik.conditionaltext.commands;
 
-import space.devport.utils.commands.MainCommand;
-import space.devport.utils.commands.struct.CommandResult;
+import space.devport.dock.commands.MainCommand;
+import space.devport.dock.commands.struct.CommandResult;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
+import space.devport.wertik.conditionaltext.commands.subcommands.ListSubCommand;
 import space.devport.wertik.conditionaltext.commands.subcommands.TrySubCommand;
 
 public class ConditionalTextCommand extends MainCommand {
@@ -19,6 +20,7 @@ public class ConditionalTextCommand extends MainCommand {
                     return CommandResult.SUCCESS;
                 }));
         withSubCommand(new TrySubCommand(plugin));
+        withSubCommand(new ListSubCommand(plugin));
     }
 
     @Override

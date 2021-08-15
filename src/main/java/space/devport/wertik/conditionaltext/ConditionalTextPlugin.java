@@ -4,17 +4,17 @@ import lombok.Getter;
 import lombok.extern.java.Log;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import space.devport.utils.DevportPlugin;
-import space.devport.utils.UsageFlag;
-import space.devport.utils.utility.DependencyUtil;
-import space.devport.utils.utility.VersionUtil;
+import space.devport.dock.DockedPlugin;
+import space.devport.dock.UsageFlag;
+import space.devport.dock.util.DependencyUtil;
+import space.devport.dock.util.VersionUtil;
 import space.devport.wertik.conditionaltext.commands.ConditionalTextCommand;
 import space.devport.wertik.conditionaltext.system.SettingManager;
 
 import java.time.format.DateTimeFormatter;
 
 @Log
-public class ConditionalTextPlugin extends DevportPlugin {
+public class ConditionalTextPlugin extends DockedPlugin {
 
     @Getter
     private static ConditionalTextPlugin instance;

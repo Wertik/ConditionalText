@@ -3,8 +3,7 @@ package space.devport.wertik.conditionaltext.system;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import org.jetbrains.annotations.Nullable;
-import space.devport.utils.configuration.Configuration;
-import space.devport.utils.logging.DebugLevel;
+import space.devport.dock.configuration.Configuration;
 import space.devport.wertik.conditionaltext.ConditionalTextPlugin;
 import space.devport.wertik.conditionaltext.system.struct.Setting;
 
@@ -38,7 +37,7 @@ public class SettingManager {
                 continue;
 
             loadedSettings.put(settingName, setting);
-            log.log(DebugLevel.DEBUG, String.format("Loaded setting %s", settingName));
+            log.fine(String.format("Loaded setting %s", settingName));
         }
 
         log.info(String.format("Loaded %d setting(s)...", loadedSettings.size()));
