@@ -2,7 +2,7 @@ name: ${project.name}
 main: ${project.groupId}.ConditionalTextPlugin
 version: ${project.version}
 authors: [ qwz ]
-softdepend: [ PlaceholderAPI ]
+depend: [ PlaceholderAPI ]
 api-version: 1.13
 commands:
   conditionaltext:

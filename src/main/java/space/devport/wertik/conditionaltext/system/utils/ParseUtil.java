@@ -34,4 +34,13 @@ public class ParseUtil {
 
         return input;
     }
+
+    // Replace $n with arguments from the placeholder.
+    public String parseArguments(String string, String[] arguments) {
+        for (int n = 0; n < arguments.length; n++) {
+            String argument = arguments[n];
+            string = string.replace("$" + n, argument);
+        }
+        return string;
+    }
 }

@@ -6,7 +6,7 @@
 
     <groupId>space.devport.wertik.conditionaltext</groupId>
     <artifactId>ConditionalTextPlaceholders</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0-SNAPSHOT</version>
 
     <name>ConditionalTextPlaceholders</name>
 
@@ -67,12 +67,12 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>devport</id>
-            <url>https://nexus.devport.space/repository/devport-public/</url>
+            <id>devport-snapshots</id>
+            <url>https://nexus.devport.space/snapshots/</url>
         </repository>
         <repository>
             <id>placeholderapi</id>
-            <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
     </repositories>
 
@@ -80,19 +80,19 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.19-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>21.0.1</version>
+            <version>23.0.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
+            <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

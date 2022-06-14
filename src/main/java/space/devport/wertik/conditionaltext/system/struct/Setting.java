@@ -8,6 +8,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.Nullable;
 import space.devport.dock.configuration.Configuration;
 import space.devport.dock.util.StringUtil;
+import space.devport.wertik.conditionaltext.system.utils.ParseUtil;
 import space.devport.wertik.conditionaltext.system.utils.PlaceholderUtil;
 
 import java.util.Collection;
@@ -68,28 +69,29 @@ public class Setting {
         rules.add(rule);
     }
 
-    // Run rules for given Object value.
-    @Nullable
-    public String process(@Nullable OfflinePlayer player, Object value) {
-        for (Rule rule : rules) {
-            if (rule.check(value, player))
-                return rule.getOutput();
-        }
-        return null;
-    }
-
     // Process the given value and output the formatted text based on rules.
     @Nullable
     public String process(@Nullable OfflinePlayer player, Object value, String... arguments) {
 
         // Actually process the value into an output
-        String output = process(player, value);
+        String output = null;
+
+        for (Rule rule : rules) {
+            if (rule.check(value, player, arguments)) {
+                output = rule.getOutput();
+                break;
+            }
+        }
+
+        if (output == null) {
+            return null;
+        }
 
         // Parse arguments again (in case there were some in the output)
-        output = parseArguments(output, arguments);
+        output = ParseUtil.parseArguments(output, arguments);
 
         // Parse PAPI again and color the output.
-        return StringUtil.color(output != null ? PlaceholderAPI.setPlaceholders(player, output) : null);
+        return StringUtil.color(PlaceholderAPI.setPlaceholders(player, output));
     }
 
     @Nullable
@@ -106,20 +108,11 @@ public class Setting {
     public String process(@Nullable OfflinePlayer player, String... arguments) {
 
         // Replace $n
-        String placeholder = parseArguments(this.placeholder, arguments);
+        String placeholder = ParseUtil.parseArguments(this.placeholder, arguments);
 
         // Parse the placeholder into a comparable object.
         Object value = PlaceholderUtil.parsePlaceholderIntoObject(player, placeholder);
 
         return process(player, value, arguments);
-    }
-
-    // Replace $n with arguments from the placeholder.
-    private String parseArguments(String string, String[] arguments) {
-        for (int n = 0; n < arguments.length; n++) {
-            String argument = arguments[n];
-            string = string.replace("$" + n, argument);
-        }
-        return string;
     }
 }

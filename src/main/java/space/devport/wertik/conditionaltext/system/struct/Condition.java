@@ -42,12 +42,15 @@ public class Condition {
         return operator == null ? null : new Condition(ParseUtil.parseObject(input), operator);
     }
 
-    public boolean check(Object value, @Nullable OfflinePlayer player) {
+    public boolean check(Object value, @Nullable OfflinePlayer player, String... arguments) {
         Object required = this.required;
 
         // Parse placeholders in String requirements.
-        if (required instanceof String)
-            required = ParseUtil.parseObject(PlaceholderUtil.parsePlaceholders(player, (String) required));
+        if (required instanceof String) {
+            required = PlaceholderUtil.parsePlaceholders(player, (String) required); // Parse PAPI
+            required = ParseUtil.parseArguments((String) required, arguments); // Parse $n
+            required = ParseUtil.parseObject((String) required); // Parse the type again
+        }
 
         boolean out = operator.apply(value, required);
 
