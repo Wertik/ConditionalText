@@ -72,8 +72,8 @@ With strings:
 *Let's say a placeholder outputs yes or no.*
 ```yaml
 rules:
-  - '=yes;&aYup yup.'
-  - '=no;&cNaaaah.'
+  - '==yes;&aYup yup.'
+  - '==no;&cNaaaah.'
 ```
 
 With time:
@@ -109,8 +109,8 @@ That's when arguments come in handy:
 custom-arg-setting:
   placeholder: '%specializedcrates_virtual_keys_$0%'
   rules:
-    - "=0;&cYou have no keys :'("
-    - "=1;&7&oOoOoo, one key, open it!"
+    - "==0;&cYou have no keys :'("
+    - "==1;&7&oOoOoo, one key, open it!"
     - "<10;&7You have &b%specializedcrates_virtual_keys_$0% &7keys."
     - ">50;&b%specializedcrates_virtual_keys_$0% &7keys, are you joking? Why are you not gambling you key-hugger?!?!"
 ```
