@@ -1,5 +1,5 @@
-# ConditionalText
-Display text in placeholders conditionaly,... based on PlaceholderAPI placeholder values.
+# ConditionalPlaceholders
+Placeholders with output based on other placeholders' values.
 
 ## Description
 
