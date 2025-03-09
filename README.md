@@ -122,6 +122,11 @@ You can add as many of them as you want. Just make sure you're **counting from 0
 For the above example with a crate named Epic to display, you'd use ``%conditionaltext_custom-arg-setting_Epic%``
 Then with a different type of crate,.. let's say Mythic: ``%conditionaltext_custom-arg-setting_Mythic%``
 
+### Common problems
+
+**Performance**
+Due to the plugin requesting placeholders from other expansions through PlaceholderAPI again, it gets a lot of blame it doesn't deserve. Some of this is also caused by a lot of requests for the placeholders. When used in a scoreboard / tablist plugin, first try decreasing the refresh rate.
+
 ### Help
 
 For help, join [this discord server](https://discord.gg/5Suw58j)
